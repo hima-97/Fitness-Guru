@@ -1,0 +1,65 @@
+.exerciseBody {
+    border-radius: 25px;
+    background: linear-gradient(to right,#DCEFF5, #99CAF7);
+    color: #2C4457;
+    margin: 5px 0px 20px 0px;
+    width: 220px;
+}
+
+.exerciseBody:hover{
+    background: #99CAF7;
+}
+
+.exerciseStats {
+    display: inline;
+    padding: 5px;
+}
+
+
+#updateTitle {
+    z-index: 1000;
+    width: 500px;
+}
+
+#updateDesc {
+    height: 250px;
+    width: 450px;
+}
+
+#updateNotes {
+    width: 450px;
+}
+
+#cardAndDelete {
+    position: relative;
+}
+
+#deleteExercise {
+    background: none;
+    border: none;
+    position: absolute;
+    left: 4px;
+}
+
+#delExx{
+    position: relative;
+    top: 20px;
+}
+
+#underline{
+    background: none;
+    width: 10px;
+    height: 2px;
+    position: absolute;
+    left: 24px;
+    top: 33px;
+}
+#deleteExercise:hover + #underline {
+    background: #F06362;
+
+}
+
+#cardAndDelete {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}

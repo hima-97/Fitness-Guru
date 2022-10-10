@@ -1,0 +1,11 @@
+.exercisesBody {
+    padding: 20px;
+    color: black;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-width: 80em;
+    padding: 1em 0;
+    text-align: center;
+    margin-left: -10px;
+}

@@ -1,0 +1,61 @@
+.formBodyExercise {
+    margin-left: 25%;
+}
+
+.mb-3 {
+    font-weight: bold;
+}
+
+input {
+    margin-left: 10px;
+}
+
+#addExercise {
+    margin-left: 170px;
+}
+
+#selectExerciseCategory {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.dropdown{
+    display: inline-block;
+    width: auto;
+    margin: 0 auto;
+}
+
+#dropdown-item-button {
+    display: inline-block;
+    width: auto;
+    margin: 0 auto;
+}
+
+#exercises-dropdown {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.exercise Button{
+    width: 300px;
+}
+
+.imagesFront {
+    position: relative;
+}
+
+.imagesFront > img:first-child{
+    z-index: 2;
+}
+
+.mb-3{
+    position: relative;
+}
+.formInput {
+    position: absolute;
+    left: 140px;
+}
+
+#notesArea {
+    width: 460px;
+}
