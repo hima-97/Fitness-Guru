@@ -17,7 +17,7 @@ Fitness Guru is built using the MERN stack:
 The application also uses Mongoose, a simple schema-based solution to model application data that makes it easier to work with MongoDB in Node.js.
 
 For more details on the MERN stack implementation: <br>
-https://github.com/hima-97/Fitness-Guru/blob/main/docs/MERN.md
+https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
 
 # User Roles
 
@@ -54,4 +54,5 @@ https://github.com/hima-97/Fitness-Guru/blob/main/docs/MERN.md
 
 To check out our most recent deployment of the app, visit the link here: https://fitness-guru-main.herokuapp.com/
 
-To install and deploy the app, follow the instructions here: https://github.com/hima-97/Fitness-Guru/blob/main/docs/DEPLOY.md
+To install and deploy the app, follow the instructions here: <br>
+https://github.com/hima-97/Fitness-Guru/blob/master/docs/DEPLOY.md
