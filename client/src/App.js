@@ -1,4 +1,11 @@
+// This is where you actually create the front-end React app
+// This is the main React app with the code that is going to be displayed
+
 import React, { useState } from "react";
+
+// The "react-router-dom" is used to make it easier to route different URLs to different React components:
+// With this, you will be able to have a router element for each route of the application
+// You need to put everything you want to be used with the router inside the router element
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import CheckingSignedIn from "./pages/CheckingSignedIn";
@@ -22,6 +29,7 @@ export default function App() {
     script.onload = () => initGoogleSignIn();
     document.body.appendChild(script);
 
+    // Function for Google sign-in:
     function initGoogleSignIn() {
         window.gapi.load("auth2", () => {
             window.gapi.auth2
@@ -57,34 +65,15 @@ export default function App() {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" component={Home} />
+                    /* If the user is not logged in, then everything inside PrivateRoute is not displayed */
                     <PrivateRoute exact path="/profile" component={Profile} />
-                    <PrivateRoute
-                        exact
-                        path="/myexercises"
-                        component={MyExercises}
-                    />
-                    <PrivateRoute
-                        exact
-                        path="/myworkouts"
-                        component={MyWorkouts}
-                    />
+                    <PrivateRoute exact path="/myexercises" component={MyExercises} />
+                    <PrivateRoute exact path="/myworkouts" component={MyWorkouts} />
                     <PrivateRoute exact path="/mysplits" component={MySplits} />
                     <PrivateRoute exact path="/publicsplits" component={PublicSplits} />
-                    <PrivateRoute
-                        exact
-                        path="/myweights"
-                        component={MyWeights}
-                    />
-                    <PrivateRoute
-                        exact
-                        path="/workout"
-                        component={WorkoutPage}
-                    />
-                    <PrivateRoute
-                        exact
-                        path="/progress"
-                        component={ProgressPage}
-                    />
+                    <PrivateRoute exact path="/myweights" component={MyWeights} />
+                    <PrivateRoute exact path="/workout" component={WorkoutPage} />
+                    <PrivateRoute exact path="/progress" component={ProgressPage} />
                     <Route path="/" component={PageNotFound} />
                 </Switch>
             </BrowserRouter>

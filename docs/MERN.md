@@ -9,10 +9,6 @@ Other variants include MEVN (MongoDB, Express, Vue, Node), and really any front-
 
 Regardless of which variant you choose, ME(RVA)N is the ideal approach to working with JavaScript and JSON.
 
-MERN stack tutorials: <br>
-- https://www.youtube.com/watch?v=7CqJlxBYj-M&ab_channel=freeCodeCamp.org
-- https://www.youtube.com/watch?v=mrHNSanmqQ4&ab_channel=freeCodeCamp.org
-
 MERN stands for MongoDB, Express, React, Node:
 - MongoDB
     - A document-based open source database

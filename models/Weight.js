@@ -1,3 +1,5 @@
+// "Weight" entity database schema, using mongoose:
+
 const mongoose = require("mongoose");
 
 const WeightSchema = new mongoose.Schema({

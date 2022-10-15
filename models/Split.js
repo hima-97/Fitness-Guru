@@ -1,3 +1,5 @@
+// "Split" entity database schema, using mongoose:
+
 const mongoose = require("mongoose");
 
 const SplitSchema = new mongoose.Schema({

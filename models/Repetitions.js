@@ -1,3 +1,5 @@
+// "Repetitions" entity database schema, using mongoose:
+
 const mongoose = require("mongoose");
 
 const RepetitionsSchema = new mongoose.Schema({

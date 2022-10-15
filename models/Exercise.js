@@ -1,3 +1,5 @@
+// "Exercise" entity database schema, using mongoose:
+
 const mongoose = require("mongoose");
 
 const ExerciseSchema = new mongoose.Schema({

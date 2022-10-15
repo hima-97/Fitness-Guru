@@ -52,7 +52,8 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
 
 # Installation and Deployment
 
-To check out our most recent deployment of the app, visit the link here: https://fitness-guru-main.herokuapp.com/
+To check out our most recent deployment of the app, visit the link here: <br>
+https://fitness-guru-main.herokuapp.com/
 
 To install and deploy the app, follow the instructions here: <br>
 https://github.com/hima-97/Fitness-Guru/blob/master/docs/DEPLOY.md
