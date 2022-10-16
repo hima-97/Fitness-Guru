@@ -20,6 +20,7 @@ export default function Exercise() {
     return (
         <div>
             <br />
+            {/* Creating table with Exercise, Description, and Notes attributes: */}
             <table class = "table table-hover table-bordered table-morecondensed" style={{height: "auto"}}>
                 <thead>
                     <tr>
@@ -29,13 +30,15 @@ export default function Exercise() {
                         <th></th>
                     </tr>
                 </thead>
+                {/* The body of the table: */}
                 <tbody>
                     {exercises.map((exercise) => (
                         <tr style={{paddingBottom:'0px'}}>
-                            <td className = "tableentry">{exercise.name}</td>
+                            <td className = "tablentry">{exercise.name}</td>
                             <td>{ReactHtmlParser(exercise.description)}</td>
                             <td>{ReactHtmlParser(exercise.notes)}</td>
                             <td>
+                                {/* Creating "Update" button: */}
                                 <div>
                                     <button
                                         type="button"
@@ -49,7 +52,7 @@ export default function Exercise() {
                                         Update
                                     </button>
                                 </div>
-
+                                {/* After clicking "Update" button, a small window pops up: */}                                            
                                 <div
                                     class="modal fade"
                                     id={"updateExercise" + exercise._id}
@@ -86,8 +89,10 @@ export default function Exercise() {
                                                 method="POST"
                                                 class="mb-4"
                                             >
+                                                {/* Adding two attributes to pop up window: */}
                                                 <div class="modal-body">
                                                     <br />
+                                                    {/* Adding "Description" attribute to pop up window: */}
                                                     <div class="form-group">
                                                         <label for="description">
                                                             Description
@@ -102,6 +107,7 @@ export default function Exercise() {
                                                         />
                                                     </div>
                                                     <br />
+                                                    {/* Adding "Notes" attribute to pop up window: */}
                                                     <div class="form-group">
                                                         <label for="notes">
                                                             Notes
@@ -117,6 +123,7 @@ export default function Exercise() {
                                                     </div>
                                                     <br />
                                                 </div>
+                                                {/* Adding "Close" button to bottom of pop up window: */}
                                                 <div class="modal-footer">
                                                     <button
                                                         type="button"
@@ -125,6 +132,7 @@ export default function Exercise() {
                                                     >
                                                         Close
                                                     </button>
+                                                    {/* Adding "Update Exercise" input-submit-type button to bottom of pop up window: */}
                                                     <input
                                                         type="submit"
                                                         value="Update Exercise"

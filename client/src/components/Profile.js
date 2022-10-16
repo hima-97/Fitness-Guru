@@ -16,6 +16,7 @@ export default function Exercise() {
     return (
         <div>
             <div>
+                {/* Displaying "Update Profile" button: */}
                 <button
                     type="button"
                     class="btn btn-primary btn-block"
@@ -142,6 +143,7 @@ export default function Exercise() {
                 </div>
             ) : (
                 <div>
+                    {/* After clicking "Update Profile" button, a small window pops up: */}
                     {profile.map((profile) => (
                         <div>
                             <div
@@ -250,6 +252,7 @@ export default function Exercise() {
                                                 </div>
                                                 <br />
                                             </div>
+                                            {/* Adding "Close" button to bottom of pop up window: */}
                                             <div class="modal-footer">
                                                 <button
                                                     type="button"
@@ -258,6 +261,7 @@ export default function Exercise() {
                                                 >
                                                     Close
                                                 </button>
+                                                {/* Adding "Update Profile" input-submit-type button to bottom of pop up window: */}
                                                 <input
                                                     type="submit"
                                                     value="Update Profile"
@@ -269,6 +273,7 @@ export default function Exercise() {
                                 </div>
                             </div>
                             <br />
+                            {/* Text card for "Profile" with different attributes: */}
                             <div className = "inf">
                                 <div class = "card text-center biggercard">
                             <ul class = "list-group list-group-flush">

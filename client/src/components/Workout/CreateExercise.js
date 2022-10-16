@@ -1,3 +1,5 @@
+// This file contains the process of creating a new exercise
+
 import React from "react";
 import {useState, useEffect} from "react";
 import $ from "jquery";
@@ -91,10 +93,12 @@ const Exx = ({e, user, workoutID, handleAddExercise}) => {
 
     return (
     <div className="exercise">
+        {/* Displaying all available exercises after button for a specific muscle group is clicked: */}
         <Button variant="primary" onClick={handleShow}>
             {e.name}
         </Button>
 
+        {/* Displaying pop up window after button for a specific exercise for a specific muscle group is clicked: */}
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
             <Modal.Title>{e.name}</Modal.Title>
@@ -123,7 +127,8 @@ const Exx = ({e, user, workoutID, handleAddExercise}) => {
   );
 
 }
-// component takes in handler function that handles where to add the exercise to
+
+// Component takes in handler function that handles where to add the exercise:
 const CreateExercise = ({ inSplit, workout, categories, workoutID, handleAddExercise, user }) => {
     let exercise = {};
     const [custom, setCustom] = useState(false);
@@ -150,6 +155,7 @@ const CreateExercise = ({ inSplit, workout, categories, workoutID, handleAddExer
 
     return (
         <>
+        {/* All muscle group buttons for when an exercise is being created: */}
         <div id="selectExerciseCategory">
             <ExxCategory categories={categories} className="category" title={"Arms"} category={8} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>
             <ExxCategory categories={categories} className="category" title={"Legs"} category={9} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>
@@ -161,6 +167,7 @@ const CreateExercise = ({ inSplit, workout, categories, workoutID, handleAddExer
             <Button class="btn btn-success" onClick={() => setCustom(true)}>Custom</Button>
         </div>
 
+        {/* Form for when "Custom" button is clicked: */}    
         <div id="form">
             <br/>
             {custom && <><Form className="formBodyExercise">
