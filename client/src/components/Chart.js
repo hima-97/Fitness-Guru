@@ -1,3 +1,6 @@
+// This file is used for the "Chart" component
+// Using Chart J.S.(a javascript library), the line chart component is implemented in a graph
+
 import React, {Component} from 'react';
 import {Bar, Line} from 'react-chartjs-2';
 function Chart(props){

@@ -1,8 +1,12 @@
+// This file is used for the "Profile" component
+
 import React, { useState, useEffect } from "react";
 import getUser from "../utils/get-user";
 import "./contai.css";
 import {Button} from "react-bootstrap";
 export default function Exercise() {
+    // The React "useState" hook allows you to track state in a function component:
+    // State generally refers to data or properties that need to be tracked in an application
     const [profile, setProfile] = useState({});
 
     const user = getUser();

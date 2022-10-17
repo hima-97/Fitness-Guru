@@ -1,3 +1,5 @@
+// This file is used for the "Exercise" component
+
 import React, { useState, useEffect } from "react";
 import getUser from "../utils/get-user";
 import compare from "../utils/compare";
@@ -6,6 +8,8 @@ import "./contai.css";
 import ReactHtmlParser from 'react-html-parser';
 
 export default function Exercise() {
+    // The React "useState" hook allows you to track state in a function component:
+    // State generally refers to data or properties that need to be tracked in an application
     const [exercises, setExercises] = useState([]);
 
     const user = getUser();
