@@ -7,6 +7,28 @@
 ## User Flow
 [User Flow.pdf](https://github.com/ucsb-cs148-f21/project-t03-fitnessguru/files/7664471/User.Flow.1.pdf)
 
+## Code Structure
+
+- client
+    - node modulus
+    - public
+    - src
+        - components
+        - pages
+        - utils
+        - App.js
+        - index.js
+    - .env file
+    - package.json file
+- config
+    - routes
+    - config.env
+    - db.js
+- models
+- index.js
+- package.json file
+- .gitignore
+- README.md
 
 ## Team Decisions
 

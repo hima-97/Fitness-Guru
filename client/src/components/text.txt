@@ -1,0 +1,18 @@
+- client
+    * node modulus
+    * src
+        - components
+        - pages
+        - utils
+        - App.js
+        - index.js
+    * .env file
+    * package.json file
+- config
+    * routes
+    * config.env
+- models
+- index.js
+- package.json file
+- .gitignore
+- README.md
