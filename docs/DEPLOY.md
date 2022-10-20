@@ -55,7 +55,7 @@ Remember to replace \<password> in the connection string with the actual passwor
 Clone this repository:
 
 ```sh
-git clone git@github.com:ucsb-cs148-f21/project-t03-fitnessguru.git
+git clone https://github.com/hima-97/Fitness-Guru.git
 ```
 
 Run npm install in the root directory:
