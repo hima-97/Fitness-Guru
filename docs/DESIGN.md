@@ -41,7 +41,7 @@
 
 ## User Flow
 
-
+![Fitness Guru - User Flow Diagram](https://user-images.githubusercontent.com/66971869/196836916-766745cc-0785-41a4-bf87-79f5ce97552f.png)
 
 ## Specifics
 - Pages: Home, Profile, MyExercises, MyWorkouts, MySplits, MyWeights, Progress
