@@ -1,11 +1,6 @@
-# FitnessGuru Design
+# Fitness Guru Design
 
-## Overview
-[FitnessGuru Design Diagram.pdf](https://github.com/ucsb-cs148-f21/project-t03-fitnessguru/files/7664869/FitnessGuru.Design.Diagram.2.pdf)
-
-
-## User Flow
-[User Flow.pdf](https://github.com/ucsb-cs148-f21/project-t03-fitnessguru/files/7664471/User.Flow.1.pdf)
+![Fitness Guru - System Architecture Diagram](https://user-images.githubusercontent.com/66971869/194792718-d14ba65e-3fd5-44cd-9747-45949bb5c646.png)
 
 ## Code Structure
 
@@ -43,6 +38,10 @@
 - Allow for users to record their weights and reps for specific exercises and check their progress by being able to view charts that display their logged data (https://github.com/ucsb-cs148-f21/project-t03-fitnessguru/blob/main/team/sprint03/sprint03.md)
 - Allow users to make their splits public and view other users' splits that have been made public (https://github.com/ucsb-cs148-f21/project-t03-fitnessguru/blob/main/team/sprint03/sprint03.md)
 - We started by creating basic pages like the profile page and MyExercises page for the MVP. From there, we built out our more advanced pages like the MyWorkouts, MySplits, MyProgress, and Public Splits pages.
+
+## User Flow
+
+
 
 ## Specifics
 - Pages: Home, Profile, MyExercises, MyWorkouts, MySplits, MyWeights, Progress
