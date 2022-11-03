@@ -1,4 +1,4 @@
-// "index.js" file AKA "server.js" file
+// "index.js" file for server
 
 const express = require("express");
 const mongoose = require("mongoose"); // Mongoose will help us to connect to the MongoDB database
