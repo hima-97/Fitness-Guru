@@ -65,7 +65,7 @@ export default function App() {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    {/* If the user is not logged in, then everything inside "PrivateRoute" is not displayed: */}
+                    {/* If the user is not logged in, then everything inside "PrivateRoute" is not going to be displayed: */}
                     <PrivateRoute exact path="/profile" component={Profile} />
                     <PrivateRoute exact path="/myexercises" component={MyExercises} />
                     <PrivateRoute exact path="/myworkouts" component={MyWorkouts} />
