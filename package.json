@@ -2,8 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "engines": {
-    "node": "16.8.0",
-    "npm": "7.21.0"
+    "node": "16.8.0"
   },
   "description": "",
   "main": "index.js",
