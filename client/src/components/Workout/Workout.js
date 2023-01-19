@@ -1,3 +1,14 @@
+// This code is defining a React functional component called Workout.
+// The component takes in several properties, namely split, creating, inSplit, workouts, setWorkouts, w, and user.
+// The component uses the useState hook to initialize a state variable called exercises with the value of the exercises property of the w object. 
+// It also initializes a state variable called showCreateExercise with the value of false.
+// The component also has two functions, editExercises and removeExercise which are used to update the exercises state variable and the exercises property of the w object.
+// The component also has a function called handleAddExercise which is used to add a new exercise object to the exercises state variable and the exercises property of the w object.
+// The handleDelete function is used to send a delete request to the server to delete the workout from the database
+// The component also has a ternary operator that check if the current user is the owner of the workout or not
+// Finally, the component renders a Card element with the class name "workoutBody" and some children elements including the workout name, a "create exercise" button and a button for updating the workout.
+// It also renders a modal with a ListExercises component and a CreateExercise component, which are used to display and create exercises.
+
 import React from "react";
 import {useState} from "react";
 import Exercise from "./Exercise";

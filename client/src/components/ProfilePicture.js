@@ -1,3 +1,14 @@
+// This is a React functional component called "ProfilePicChanger".
+// The component uses the React hooks 'useState' and 'useEffect' to track the state of the user's profile and fetch the user's information from the server.
+// The 'useState' hook is used to set the initial value of the 'profile' state to an empty object, and the 'setProfile' function is used to update the 'profile' state. 
+// The 'useEffect' hook is used to fetch the user's information from the server using the user's id and then updating the 'profile' state with the received user information.
+// The component returns a button that when clicked, opens a modal window that allows the user to update the profile picture. 
+// The modal window is created using Bootstrap classes, and it contains a form that allows the user to input a new profile picture by entering a text. 
+// The form makes a POST request to the '/user' route and passes the user's googleId and the new profile picture as parameters.
+// When the modal window is closed, the component logs the current 'profile' state to the console and also checks if the object 'profile' is empty or not. 
+// If the object is empty, the modal window is not rendered, otherwise it will be rendered.
+// It also includes a close button at the bottom of the modal window.
+
 import React, { useState, useEffect } from "react";
 import getUser from "../utils/get-user";
 import "./contai.css";

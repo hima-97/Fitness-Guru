@@ -4,19 +4,33 @@ import React, { useState, useEffect } from "react";
 import getUser from "../utils/get-user";
 import "./contai.css";
 import {Button} from "react-bootstrap";
+
+
 export default function Exercise() {
-    // The React "useState" hook allows you to track state in a function component:
+    // It defines the component's state with the useState hook, setting the initial value of the "profile" state to an empty object:
+    // The React "useState" hook allows you to track state in a function component
     // State generally refers to data or properties that need to be tracked in an application
     const [profile, setProfile] = useState({});
 
+    // Getting current logged-in user:
     const user = getUser();
 
+    // useEffect hook to fetch the user's profile data from the server when the component is rendered, using the user's ID as a parameter:
+    // The response is parsed as JSON and the user's profile is set as the component's state
+    // (i.e. "useEffect" hook to fetch the user's profile information from an endpoint, /user/${user.id}, and update the state with the fetched data)
     useEffect(() => {
         fetch(`/user/${user.id}`)
             .then((res) => res.json())
             .then((user) => setProfile(user));
     }, [user.id]);
 
+    // The return statement of the component is rendering the layout of the profile page, including a button labeled "Update Profile" which opens a bootstrap modal window when clicked.
+    // The modal window contains a form with several input fields for updating the user's profile information, such as date of birth, height, and weight. 
+    // Each input field is associated with a specific label, and the form is set to submit to the endpoint /user using the POST method. 
+    // The form also includes a hidden input field with the user's googleId, which is pre-populated with the value of user.id obtained from the getUser function.
+    // The console.log(profile) is only for debugging purpose to check the profile state.
+    // The ternary operator (i.e. ':' ) checks whether the profile object is empty or not. If it's empty, the modal will not be rendered.
+    // Once the form is filled and submitted, the user's profile information will be updated in the database.
     return (
         <div>
             <div>
@@ -26,7 +40,7 @@ export default function Exercise() {
                     class="btn btn-primary btn-block"
                     data-toggle="modal"
                     data-target="#updateProfile"
-                    class = "btn btn-outline-info"
+                    class1 = "btn btn-outline-info"
                     className = "bt2"
                 >
                     Update Profile

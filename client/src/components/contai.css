@@ -1,3 +1,10 @@
+/*
+This is a CSS file that provides styling for the 'Container' component
+*/ 
+
+/*
+The '.c' class is used to style a flex container, positioning it 10px from the top and 0px from the left, and setting the flex direction to column and padding to 0
+*/
 .c {
     display: flex;
     position: relative;
@@ -8,19 +15,33 @@
     justify-content: flex-start;
 }
 
+/*
+The '.av' class positions an element with a class of 'av' to the bottom of the page, with a margin of 50px
+*/
 .av {
     display: flex;
     bottom: 100px;
     margin: 50px;
 }
+
+/*
+The '.prof' class sets a margin of 50px for an element with a class of 'prof'
+*/
 .prof {
     display: flex;
     margin: 50px;
 }
+
+/*
+The '.backg' class sets the background color of an element to rgb(100, 214, 214)
+*/
 .backg {
     background-color: rgb(100, 214, 214);
 }
 
+/*
+The '.bt' class sets the background color, position, border, color, padding, width, height, text-align, text-decoration, display, font-size of an element with a class of 'bt'
+*/
 .bt {
     background-color: #e7e7e7;
     position: relative;
@@ -37,6 +58,9 @@
     font-size: 12px;
 }
 
+/*
+The '.bt2' class sets the position, padding, width, height, text-align, text-decoration, display, border-radius, font-size of an element with a class of 'bt2'
+*/
 .bt2 {
     position: relative;
     right: -1275px;
@@ -51,15 +75,26 @@
     font-size: 12px;
 }
 
+/*
+The '.item' class sets the top border of an element with a class of 'item' to 1px solid rgb(112, 110, 110)
+*/
 .item {
     border-top: 1px solid rgb(112, 110, 110);
 }
+
+/*
+The '.inf' class sets the font-size and positions an element with a class of 'inf'
+*/
 .inf {
     font-size: large;
     position: relative;
     bottom: 250px;
     left: 250px;
 }
+
+/*
+The '.welcome' class sets the font-size and positions an element with a class of 'welcome'
+*/
 .welcome {
     font-size: 20px;
     position: absolute;
@@ -67,20 +102,28 @@
     left: 10px;
 }
 
+/*
+The 'body' class sets the margin-top, color, text-align and background-color of the body
+*/
 body{
     margin-top:20px;
     color: #1a202c;
     text-align: left;
     background-color: #e2e8f0;    
 }
+
+/*
+The '.main-body' class sets the padding of an element with a class of 'main-body' to 15px
+*/
 .main-body {
     padding: 15px;
 }
+
+/*
+The '.card' class sets the box-shadow, position, display, flex-direction, min-width, word-wrap, background-color, background-clip, border and border-radius of an element with a class of 'card'
+*/
 .card {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
-}
-
-.card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -92,41 +135,78 @@ body{
     border-radius: .25rem;
 }
 
+/*
+The '.card-body' class sets the flex, min-height and padding of an element with a class of 'card-body'
+*/
 .card-body {
     flex: 1 1 auto;
     min-height: 1px;
     padding: 1rem;
 }
 
+/*
+The '.gutters-sm' class sets the margin-right, margin-left of an element with a class of 'gutters-sm'
+*/
 .gutters-sm {
     margin-right: -8px;
     margin-left: -8px;
 }
 
+/*
+The '.gutters-sm>.col, .gutters-sm>[class*=col-]' class sets the padding-right and padding-left of an element with a class of 'col' and 'col-*'
+*/
 .gutters-sm>.col, .gutters-sm>[class*=col-] {
     padding-right: 8px;
     padding-left: 8px;
 }
+
+/*
+The '.mb-3, .my-3' class sets the margin-bottom of an element with a class of 'mb-3' or 'my-3'
+*/
 .mb-3, .my-3 {
     margin-bottom: 1rem!important;
 }
 
+/*
+The '.bg-gray-300' class sets the background color of an element with a class of 'bg-gray-300'
+*/
 .bg-gray-300 {
     background-color: #e2e8f0;
 }
+
+/*
+The '.h-100' class sets the height of an element with a class of 'h-100'
+*/
 .h-100 {
     height: 100%!important;
 }
+
+/*
+The '.shadow-none' class sets the box-shadow of an element with a class of 'shadow-none'
+*/
 .shadow-none {
     box-shadow: none!important;
 }
 
+/*
+The '.tableentry' class sets the padding of an element with a class of 'tableentry'
+*/
 .tableentry{
     padding: 10px;
 }
+
+/*
+The '.biggercard' class sets the width of an element with a class of 'biggercard'
+*/
 .biggercard{
     width: 300%
 }
+
+/*
+These lines of code apply a padding of 1px to all the table cells in the "thead", "tbody" and "tfoot" sections of a table with the class "table_morecondensed"
+This will add a 1 pixel space around the content within each cell of the table to separate it from the cell borders
+his specific class "table_morecondensed" is used to style a table that is more condensed than other tables in the application
+*/
 .table_morecondensed>thead>tr>th, 
 .table_morecondensed>tbody>tr>th, 
 .table_morecondensed>tfoot>tr>th, 

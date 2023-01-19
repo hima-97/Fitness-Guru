@@ -1,3 +1,19 @@
+// This script defines a functional React component called 'ExerciseModalNoEdit' which is a modal that displays the exercise information without the ability to edit it. 
+// The modal takes in three props: 'show', 'handleClose', and 'e'. 
+// 'Show' is a boolean prop that determines whether the modal is visible or not, 'handleClose' is a function that closes the modal, and 'e' is an object that contains the exercise information.
+// The modal has two main sections, the header and the body. 
+// The header displays the name of the exercise by extracting it from the 'e' object and displaying it in an H5 tag with an id of 'exerciseTitle'. 
+// The body of the modal displays the description and notes of the exercise. 
+// If the 'e' object contains a 'description' property, it is extracted and displayed in a div tag with an id of 'exerciseDesc'. 
+// Similarly, if the 'e' object contains a 'notes' property, it is extracted and displayed in a div tag with an id of 'exerciseNotes'.
+// The modal also has a footer that contains a single button that when clicked, calls the 'handleClose' function passed as a prop to close the modal.
+// The script also defines another functional component called 'ExerciseModal' that is similar to the 'ExerciseModalNoEdit' component but also allows the user to edit the exercise information.
+// The component uses React Hooks 'useState' and 'useEffect' to handle the logic for adding and updating the exercise information. 
+// It takes in several props such as 'setAddingExercises', 'addingExercises', 'editExercises', 'show', 'handleClose', 'e', and 'workout'.
+// When the 'Edit' button is clicked, it calls the 'handleEditExercise' function which sets the 'update' state to true and changes the exercise title, description and notes to textareas so that the user can edit them.
+// When the 'Save' button is clicked, it calls the 'handleSaveEdits' function which updates the exercise information in the 'addingExercises' state or by making a post request to the server with the updated exercise information.
+// The component also has a function 'updateWorkout' which updates the exercise information in the 'workout' state and makes a post request to the server to update the data in the database.
+
 import React from "react";
 import {useState} from "react";
 import "./Exercise.css";

@@ -1,3 +1,16 @@
+// This code defines a React functional component called Split. This component is used to display a single split in a workout plan.
+// The component first imports a number of dependencies including React's useState and useEffect hooks, as well as several components from the react-bootstrap library. 
+// It also imports a custom component called Workout and a utility function called axios.
+// The Split component has two states modalShow and workouts. 
+// modalShow is a boolean value that determines whether or not a modal window should be displayed and workouts is an array that holds the workouts associated with the split.
+// The component also has a state selectedWorkout which is an object that holds the name of the selected workout and the exercises in it.
+// The Split component also has a nested functional component called MyVerticallyCenteredModal which is used to render the modal window when a user wants to view a workout.
+// The Split component uses the useEffect hook to call an API endpoint to fetch all workouts associated with the user and filter only the ones that belong to this split, and then set it as the workouts state.
+// The component also defines a function handleShowWorkout which is used to set the selected workout and open the modal window when a user wants to view a workout.
+// The component also defines two more functions handleDelete and handleMakePublic which are used to delete the split and make it public respectively by making a post request to the corresponding endpoints.
+// The component returns JSX that renders a Card component from the react-bootstrap library, which is used to display the split name, notes and workouts. 
+// It also renders a MyVerticallyCenteredModal component when a user wants to view a workout and also renders a Delete and Make Public button.
+
 import React from "react";
 import { useState, useEffect } from "react";
 import "./Split.css";
@@ -23,9 +36,6 @@ function MyVerticallyCenteredModal(props) {
         <div id="workoutModal">
         <Workout  split={props.split} inSplit={1} workouts={workouts} setWorkouts={setWorkouts} id="displayedWorkout" w={props.w} user={props.user} />
         </div>
-        
-        
-            
         </Modal>
     );
 }

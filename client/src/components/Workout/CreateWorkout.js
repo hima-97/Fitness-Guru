@@ -1,3 +1,23 @@
+// This file contains a React component called CreateWorkout. 
+// It's responsible for creating a new workout, and it allows the user to add exercises to that workout.
+// The component starts by importing React's useState hook, the CreateExercise component, the ListExercises component, and the axios library for making HTTP requests.
+// The component has a state variable called exercises which is an array that stores all the exercises that are added to the workout. 
+// The component also has a state variable called showAddExercise which is a boolean value that determines whether to show or hide the CreateExercise component.
+// The component has a function handleAddExercise which takes in an exercise object as an argument. 
+// It then concatenates this exercise object to the existing exercises array, updating the state and re-rendering the component.
+// The component also has a function handleSetShowAddExercise which is an event handler that is triggered when the user clicks on the "Add Exercise" button. 
+// This function sets the showAddExercise state variable to true, which in turn renders the CreateExercise component, allowing the user to create a new exercise.
+// The component also has a function handleClose which is an event handler that is triggered when the user clicks on the "Close" button. 
+// This function clears the input field and sets the showAddExercise state variable to false, hiding the CreateExercise component.
+// The component also has a function handleCreateWorkoutObject which is an event handler that is triggered when the user clicks on the "Save" button. 
+// This function takes the name of the workout and the notes of the workout, and the exercises array that has been added to the workout, and creates an object called workout. 
+// This workout object is then passed to the handleAddWorkout function as an argument, which is a prop passed down from the parent component.
+// The component also has a function getCategoryData to make an axios request to an external API to get the exercises data for a given category, and sets the state for each category with this data.
+// The component also has a useEffect which is used to get the data for all 7 categories of exercises when the component is mounted.
+// The component is rendered with a form that has input fields for the name and notes of the workout. 
+// It also has a button to add exercises to the workout, a button to save the workout and a button to close the modal.
+// It also has a ListExercises component that is rendered with the exercises that have been added to the workout.
+
 import React from 'react';
 import {useState, useEffect, useRef} from 'react';
 import CreateExercise from './CreateExercise';

@@ -1,3 +1,13 @@
+// This code defines a React functional component called 'WorkoutPage'. 
+// The component is responsible for displaying the workout page of the application.
+// The component then defines a functional component called WorkoutPage that utilizes the useState hook to manage the component's local state.
+// The component's state is initialized with two variables:
+// -    splits: an empty array that will contain all the splits added to the workout
+// -    showAddSplit: a boolean variable that is set to false. This variable is used to control the visibility of the "Add Split" button
+// -    showAdd a boolean variable that is set to true. This variable is used to control the visibility of the "Add split" button
+// The component then defines several functions that handle different events in the page:
+// -    handleCreateSplit: this function takes an event object as an argument, prevent the default behavior of the event, and sets the showAdd state to
+
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import getUser from "../utils/get-user";

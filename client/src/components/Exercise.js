@@ -1,5 +1,20 @@
 // This file is used for the "Exercise" component
 
+// It imports the necessary modules to use hooks and make API calls, including:
+// -    "useState" and "useEffect" from the "react" module
+// -    "getUser" and "compare" from the "../utils" directory
+// -    "Table" from the "reactstrap" module
+// It also imports a CSS file "contai.css" and the "react-html-parser" library
+// The component uses the useState hook to create a state variable called "exercises" and a setter function "setExercises" for it
+// The component also calls the "getUser" function to get the current user and uses the useEffect hook to fetch the exercises for the current user from the server
+// The useEffect hook re-runs the effect when the user.id changes, which retrieves the updated data from the server
+// The component uses the "compare" function to sort the exercises based on the name
+// Then it renders a table with the "Exercise", "Description" and "Notes" attributes
+// The table body is populated with the exercises data using the map() function
+// Each row has a button "Update" that when clicked, opens a modal window (a small window that pops up) with a form to update the exercise's information
+// The "ReactHtmlParser" library is used to parse the HTML code stored in the "description" and "notes" attributes of the exercise, so that it can be rendered correctly
+
+
 import React, { useState, useEffect } from "react";
 import getUser from "../utils/get-user";
 import compare from "../utils/compare";

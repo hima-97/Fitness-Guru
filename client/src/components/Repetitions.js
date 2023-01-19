@@ -1,3 +1,17 @@
+// In this code, the Repetitions component is being defined. It takes in two props, exercise_id and date, and uses them to retrieve data from the server using the fetch function. 
+// The data is then stored in the repetitions state variable using the useState hook and the setRepetitions function.
+// It uses the useEffect hook to make a request to the server to get the list of repetitions for a specific exercise using the fetch function. 
+// It also passing exercise_id as the dependency to the useEffect hook so that it only updates when exercise_id changes.
+// The component then sorts the list of repetitions by the number of repetitions in ascending order using the Array.prototype.sort method.
+// The component then renders a table that has two columns, Repetitions and Weights. 
+// For each repetition, the component renders a row with the number of repetitions in the first column and a Weight component in the second column. 
+// The Weight component is passed the repetitions_id prop, and a button that says "Add Weight" is also rendered. 
+// When clicked, this button opens a modal that has a form to add weight for the specific repetition.
+// The modal has a form that allows the user to input the weight for the specific repetition and submit the form. 
+// The form uses the POST method and sends the data to the server to update the weight for the specific repetition. 
+// The modal also has a close button that closes the modal when clicked.
+
+
 import React, { useState, useEffect } from "react";
 import { Table } from "reactstrap";
 import Weight from "./Weight";

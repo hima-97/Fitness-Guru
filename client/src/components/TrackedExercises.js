@@ -1,3 +1,14 @@
+// This code is for a React component called "TrackedExercises". 
+// It imports React, the getUser utility function, the Repetitions component, the compare utility function, and the DropdownButton and Dropdown components from the react-bootstrap library.
+// The component uses the useState hook to initialize two state variables, trackedExercises and exercises, which will be used to store data fetched from the server. 
+// The component also uses the getUser utility function to get the user's ID.
+// There's a variable today which is set to the current date and formatted as a string in the format of mm/dd/yyyy.
+// The component also uses the useEffect hook to execute a side effect when the component first renders. It makes two fetch calls to the server, one to retrieve the trackedExercises and another to retrieve exercises, which are stored in the state variables. The useEffect hook is passed the user.id, so that the effect will re-run whenever user.id changes.
+// The component has a DropdownButton where you can select which exercise to add to the list of tracked exercises. The list of exercises that are shown in the dropdown are the exercises that the user has created but haven't been added to the list of tracked exercises yet. When an exercise is selected, the component makes a POST request to the server with the name of the selected exercise and the user's ID, adding the selected exercise to the list of tracked exercises.
+// The component maps over the trackedExercises array and renders the name of each exercise, and a button that allows the user to add repetitions for that exercise. It also renders the Repetitions component with the exercise_id and the date passed as props.
+// The component also renders a modal with a form for adding repetitions for the exercise. When the form is submitted, it sends a POST request to the server to add the repetitions.
+
+
 import React, { useState, useEffect } from "react";
 import getUser from "../utils/get-user";
 import Repetitions from "./Repetitions";

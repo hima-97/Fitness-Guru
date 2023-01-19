@@ -74,16 +74,29 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
         This folder contains the source code of the application. This is where you will find the React components, their associated styles and images, and any other code specific to the application.
 
         -   components: <br>
-            This folder contains all the reusable React components used in the application such as buttons, forms, and navigation elements.
+            This folder contains all the reusable React components used in the application such as buttons, forms, and navigation elements. <br>
+            React components are reusable building blocks of a React application, and they are used to create the structure and layout of the application's pages. <br>
+            Each component is a self-contained unit of functionality that can be rendered to the browser as a piece of the user interface.
+
+            -   workout: <br>
+                This folder contains the components related to workout functionality, such as 'ListWorkouts.js', 'Workout.js', 'Split.js', 'Exercise.js', etc. <br>
+                'ListWorkouts.js' component, for example, is responsible for displaying the list of all the workouts for the user. <br>
+                'Workout.js' component is responsible for displaying the details of a specific workout and allowing the user to interact with it. <br>
+                'Split.js' component, on the other hand, is responsible for displaying the details of a specific split and allowing the user to interact with it.
 
         -	pages: <br>
-            This folder contains all the pages that make up the application such as the homepage, profile, etc.
+            This folder contains all the pages that make up the application such as the homepage, profile, etc. <br>
+            Each file in this folder represents a page and exports a component that is rendered when the corresponding route is accessed. <br>
+            For example, the 'MyWorkouts' component is rendered when the 'MyWorkouts' page is accessed, and the 'Profile' component is rendered when the 'Profile' page is accessed.
 
         -	test: <br>
             This folder contains test files used to test the different components and pages of the application.
 
         -	utils: <br>
-            This folder contains utility functions and modules that are used throughout the application.
+            This folder contains utility functions and modules that are used throughout the application. <br>
+            These files are used to store functionality that is not specific to any one component or page, but is used by multiple parts of the application. <br>
+            For example, the 'get-user.js' file exports a function used to retrieve the user's profile information, and the 'objectID.js' file exports a function to generate an unique id.
+
         
         -	App.css: <br>
             This file contains the styles for the App component.

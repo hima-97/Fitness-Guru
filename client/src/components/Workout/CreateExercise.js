@@ -1,4 +1,17 @@
-// This file contains the process of creating a new exercise
+// This code imports several modules such as react, jquery, react-bootstrap, axios, react-html-parser, and a custom css file 'CreateExercise.css' which is used to style the component.
+// ExxCategory is a functional component which takes in categories, title, category, user, workoutID and handleAddExercise as props. 
+// It uses the useState hook to set the state of exercises to an empty array and loading to true.
+// It contains a function handleCreateExerciseObject used to create an object and set its properties to the inputted value of the user, and post it to the server using the axios post method.
+// The component makes use of the useEffect hook which is used to fetch data from an external API https://wger.de/api/v2/exercise/ based on the category passed in as props. 
+// It sets the state of exercises to the data received and loading to false.
+// It returns a dropdown button and an empty div which is used to hold the exercises. 
+// The div will contain a spinner icon when the data is loading and the exercises once the data has been received.
+// Exx is a functional component which takes in e, user, workoutID and handleAddExercise as props. 
+// It uses the useState hook to set the state of show to false and exxID to the value returned by the objectID() function.
+// It contains a function handleAddExx which is used to create an object and set its properties to the inputted value of the user, and post it to the server using the axios post method.
+// It returns a button that when clicked shows a modal which allows the user to input notes, and add the exercise to the list of exercises.
+// objectID() is a function which returns a unique ID of the exercise.
+// The component makes use of the useEffect hook which is used to set the state of exxID to the value returned by the objectID() function.
 
 import React from "react";
 import {useState, useEffect} from "react";
