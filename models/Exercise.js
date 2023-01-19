@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 
 // Defining schema:
 // The schema has several fields, each defined with a JSON object, describing the properties of the "Exercise" entity.
-// Each field has a type, which can be a string, number, or in the case of "workout", an ObjectId, and a "required" property that specifies whether the field is required or not.
+// Each field has a type, which can be a string, number, or in the case of "workout", an ObjectId, and a "required" property to specify if the field is required or not.
 // The "workout" field has an additional property "ref" which references the "Workout" model.
 // Finally, the code exports the model with the mongoose.model("Exercise", ExerciseSchema) function, which creates a Mongoose model based on the "ExerciseSchema" and allows it to be imported and used in other parts of the application.
 const ExerciseSchema = new mongoose.Schema({
