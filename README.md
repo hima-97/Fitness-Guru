@@ -57,6 +57,12 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
     This folder is used for the client-side (i.e. front-end) of the web application. It contains the React components, styles, and other code related to the user interface.
 -   config: <br>
     This folder contains configuration files for the application, such as environment variables, database settings, and other settings that are likely to change between different environments.
+    -	routes:
+        This folder contains the code for the API endpoints that handle the different routes of the application. Each file inside the folder corresponds to a specific entity or feature of the application, such as users, exercises, workouts, etc. Each file exports a set of router functions that handle the different HTTP requests for that entity, such as GET, POST, PUT and DELETE requests.
+    -	config.env:
+        This file is used for defining environment variables for the application, such as the connection strings for the database and other third-party services, as well as other configurations (for example port number) that may change between different environments.
+    -	db.js:
+        This file contains the code that connects to the MongoDB database and sets up any necessary configurations. It exports a function that connects to the MongoDB database using the Mongoose library and the MongoDB URI from the environment variable.
 -   models: <br>
     This folder contains code related to the data models of the application, such as the schema for the MongoDB database and any additional logic to interact with it.
 -   .gitignore: <br>

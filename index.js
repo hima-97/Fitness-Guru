@@ -1,4 +1,5 @@
 // "index.js" file for server
+// This code is the main entry point of the server-side of the application, it sets up the express server, connects to the database, sets up routing and middlewares, and starts the server
 
 const express = require("express");
 const mongoose = require("mongoose"); // Mongoose will help us to connect to the MongoDB database
@@ -19,6 +20,7 @@ const app = express();
 
 // Body parser:
 // This is the cors middleware, which allows us to parse JSON when server is sending and receiving
+// The body parser middleware is used to parse incoming JSON requests and make it available on the request object
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -40,10 +42,11 @@ app.use("/trackedexercises", require("./config/routes/trackedExercises"));
 app.use("/repetitions", require("./config/routes/repetitions"));
 app.use("/weight", require("./config/routes/weight")); //
 
-// Anything that doesn't match the above, send back index.html:
+// This is a catch-all route that sends back the React's index.html file whenever the requested route doesn't match any of the routes defined above:
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
 // Starting the server:
+// The server is then started by calling the listen method on the express app, passing in the PORT and a callback function to log the message "Server running on port {PORT}" in the console
 app.listen(PORT, console.log(`Server running on port ${PORT}`));
