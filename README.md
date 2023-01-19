@@ -70,8 +70,7 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
 -   package.json: <br>
     This file contains metadata about the project, such as the project's name, version, and dependencies. It also includes scripts for common tasks, such as building and running the application.
 
-
-
+# User Flow:
 
 
 # Installation and Deployment
