@@ -78,7 +78,7 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
             React components are reusable building blocks of a React application, and they are used to create the structure and layout of the application's pages. <br>
             Each component is a self-contained unit of functionality that can be rendered to the browser as a piece of the user interface.
         
-           -   workout: <br>
+            -   workout: <br>
                 This folder contains the components related to workout functionality, such as 'ListWorkouts.js', 'Workout.js', 'Split.js', 'Exercise.js', etc. <br>
                 'ListWorkouts.js' component, for example, is responsible for displaying the list of all the workouts for the user. <br>
                 'Workout.js' component is responsible for displaying the details of a specific workout and allowing the user to interact with it. <br>
