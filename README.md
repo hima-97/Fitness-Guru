@@ -73,6 +73,30 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
     -	src: <br>
         This folder contains the source code of the application. This is where you will find the React components, their associated styles and images, and any other code specific to the application.
 
+        -   components: <br>
+            This folder contains all the reusable React components used in the application such as buttons, forms, and navigation elements.
+
+        -	pages: <br>
+            This folder contains all the pages that make up the application such as the homepage, profile, etc.
+
+        -	test: <br>
+            This folder contains test files used to test the different components and pages of the application.
+
+        -	utils: <br>
+            This folder contains utility functions and modules that are used throughout the application.
+        
+        -	App.css: <br>
+            This file contains the styles for the App component.
+
+        -	App.js: <br>
+            This file is the root component of the application. It is the parent component that holds all the other pages and components of the application.
+
+        -	index.css: <br>
+            This file contains global styles for the application.
+
+        -	index.js: <br>
+            This file is the entry point of the application, it is responsible for rendering the App component to the DOM and starting the React application.
+
     -	.env: <br>
         This file is used to store environment-specific configuration data for the application, such as API keys or application URLs. This file is typically ignored by version control systems so that sensitive information is not accidentally committed and shared with others.
 
