@@ -51,23 +51,23 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
 
 # Code Stucture:
 
--   .vscode <br>
+-   .vscode: <br>
     This folder typically contains configuration files for the Visual Studio Code text editor, such as settings and launch configurations.
--   client <br>
+-   client: <br>
     This folder is used for the client-side (i.e. front-end) of the web application. It contains the React components, styles, and other code related to the user interface.
--   config <br>
+-   config: <br>
     This folder contains configuration files for the application, such as environment variables, database settings, and other settings that are likely to change between different environments.
--   models <br>
+-   models: <br>
     This folder contains code related to the data models of the application, such as the schema for the MongoDB database and any additional logic to interact with it.
--   .gitignore <br>
+-   .gitignore: <br>
     This file is used to tell Git which files and directories to ignore when committing code to a repository.
--   .prettierrc <br>
+-   .prettierrc: <br>
     This file is used to configure the Prettier code formatter, which can be used to automatically format code according to a set of rules.
--   README.md <br>
+-   README.md: <br>
     This file is typically used to provide documentation for the project, including information on how to run, build, and contribute to the codebase.
--   index.js <br>
+-   index.js: <br>
     This file is the entry point for the application (i.e. it is where the app starts executing).
--   package.json <br>
+-   package.json: <br>
     This file contains metadata about the project, such as the project's name, version, and dependencies. It also includes scripts for common tasks, such as building and running the application.
 
 
