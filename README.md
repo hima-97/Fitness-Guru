@@ -70,8 +70,9 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
 -   package.json: <br>
     This file contains metadata about the project, such as the project's name, version, and dependencies. It also includes scripts for common tasks, such as building and running the application.
 
-# User Flow:
+# User Flow Diagram:
 
+![Fitness Guru - User Flow Diagram](https://user-images.githubusercontent.com/66971869/213334328-b2c81390-1d99-48a8-bd2f-a2aa96aedcce.png)
 
 # Installation and Deployment
 
