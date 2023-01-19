@@ -1,4 +1,6 @@
-// Adding API endpoint route for "Split" schema, so the server can be used to perform the CRUD (create, read, update, delete) operations
+// Adding API endpoint route for "Split" schema, so the server can be used to perform the CRUD (create, read, update, delete) operations for the "Split" schema in the MongoDB database
+// This code exports an Express router that handles the CRUD (create, read, update, delete) operations for the "Split" schema in the MongoDB database
+
 
 const express = require("express");
 
@@ -27,6 +29,7 @@ HTTP Requests:
 
 // Get request:
 router.get("/public", async (req, res) => {
+    // This retrieves the splits where the 'public' property is 'true' and returns the data as a response:
     const splits = await Split.find({ public: "true" });
     res.send(splits);
 });
@@ -61,6 +64,7 @@ router.post("/delete/:id", async (req, res) => {
     res.redirect("back");
 });
 
+// Request that updates the 'public' property of the split:
 router.post("/public/:id", async (req, res) => {
     const split = await Split.findOne({ _id: req.params.id })
     if(split.public === "COPIED"){
@@ -84,6 +88,7 @@ router.post("/public/:id", async (req, res) => {
     } 
 });
 
+// Request that creates a new split with the googleId and the name of the split passed in the request:
 router.post("/public/:googleId/split/:id", async (req, res) =>{
     const split = await Split.findOne({ _id: req.params.id })
     let newSplit = new Split

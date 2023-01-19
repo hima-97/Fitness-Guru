@@ -1,4 +1,6 @@
-// Adding API endpoint route for "Workout" schema, so the server can be used to perform the CRUD (create, read, update, delete) operations
+// Adding API endpoint route for "Workout" schema, so the server can be used to perform the CRUD (create, read, update, delete) operations for the "Workout" schema in the MongoDB database
+// This code exports an Express router that handles the CRUD (create, read, update, delete) operations for the "Workout" schema in the MongoDB database
+
 
 const express = require("express");
 

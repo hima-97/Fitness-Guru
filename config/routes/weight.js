@@ -1,4 +1,6 @@
-// Adding API endpoint route for "Weight" schema, so the server can be used to perform the CRUD (create, read, update, delete) operations
+// Adding API endpoint route for "Weight" schema, so the server can be used to perform the CRUD (create, read, update, delete) operations for the "Weight" schema in the MongoDB database
+// This code exports an Express router that handles the CRUD (create, read, update, delete) operations for the "Weight" schema in the MongoDB database
+
 
 const express = require("express");
 
@@ -49,6 +51,9 @@ router.post("/", async (req, res) => {
     res.redirect("back");
 });
 
+// The 'log/:name' post request:
+// This handles a request to create a new weight data in the MongoDB database with the data sent in the request body
+// and also creates a new TrackedExercise and Repetition in the MongoDB database if they don't exist
 router.post("/log/:name", async (req, res) => {
     let trackedExercise = await TrackedExercises.findOne({ name: req.params.name, googleId: req.body.googleId })
     if(trackedExercise === null){

@@ -1,4 +1,6 @@
-// Adding API endpoint route for "Exercise" schema, so the server can be used to perform the CRUD (create, read, update, delete) operations
+// Adding API endpoint route for "Exercise" schema, so the server can be used to perform the CRUD (create, read, update, delete) operations for the "Exercise" schema in the MongoDB database
+// This code exports an Express router that handles the CRUD (create, read, update, delete) operations for the "Exercise" schema in the MongoDB database
+
 
 const express = require("express");
 
@@ -26,7 +28,8 @@ HTTP Requests:
 */
 
 
-// Get request:
+// GET request:
+// A GET request handler, which retrieves exercises from the database that match the googleId specified in the URL
 router.get("/:googleId", async (req, res) => {
     // Assigning exercise for the specified googleId in the URL from MongoDB Atlas to "exercises" variable:
     const exercises = await Exercise.find({ googleId: req.params.googleId });
@@ -34,6 +37,7 @@ router.get("/:googleId", async (req, res) => {
 });
 
 // Post request:
+// A POST request handler, which creates a new exercise in the database with the data sent in the request body
 router.post("/", async (req, res) => {
     await Exercise.create(req.body);
 
@@ -45,12 +49,14 @@ router.post("/", async (req, res) => {
 });
 
 // Put request:
+// A PUT request handler, which updates an existing exercise in the database with the data sent in the request body
 router.post("/put/:id", async (req, res) => {
     await Exercise.findOneAndUpdate({ _id: req.params.id }, req.body);
     res.redirect("back");
 });
 
 // Delete request:
+// A DELETE request handler, which deletes an existing exercise from the database
 router.post("/delete/:id", async (req, res) => {
     await Exercise.findOneAndDelete({ _id: req.params.id });
     res.redirect("back");
