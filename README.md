@@ -58,7 +58,9 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
 -   config: <br>
     This folder contains configuration files for the application, such as environment variables, database settings, and other settings that are likely to change between different environments.
     -	routes: <br>
-        This folder contains the code for the API endpoints that handle the different routes of the application. Each file inside the folder corresponds to a specific entity or feature of the application, such as users, exercises, workouts, etc. Each file exports a set of router functions that handle the different HTTP requests for that entity, such as GET, POST, PUT and DELETE requests.
+        This folder contains the code for the API endpoints that handle the different routes of the application. <br>
+        Each file inside the folder corresponds to a specific entity or feature of the application, such as users, exercises, workouts, etc. <br>
+        Each file exports a set of router functions that handle the different HTTP requests for that entity, such as GET, POST, PUT and DELETE requests.
     -	config.env: <br>
         This file is used for defining environment variables for the application, such as the connection strings for the database and other third-party services, as well as other configurations (for example port number) that may change between different environments.
     -	db.js: <br>
