@@ -67,7 +67,8 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
         The index.html file is the main HTML page that loads when the user goes to the website. <br>
         It serves as the base structure for the website, which includes the head section (meta data, title, and links to CSS and JavaScript files) and the body section (where the React app is loaded). <br>
         It also includes links to bootstrap css and javascript files which enable the usage of bootstrap framework for styling and layout. <br>
-        The file defines a 'div' element with the ID of "root" which is used as a container for the React app. The JavaScript code that is loaded is stored in the "client/src/index.js" file.
+        The file defines a 'div' element with the ID of "root" which is used as a container for the React app. <br>
+        The JavaScript code that is loaded is stored in the "client/src/index.js" file.
 
     -	src: <br>
         This folder contains the source code of the application. This is where you will find the React components, their associated styles and images, and any other code specific to the application.
