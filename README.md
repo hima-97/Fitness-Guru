@@ -12,7 +12,7 @@ Fitness Guru is built using the MERN stack:
 - MongoDB
 - Express
 - React
-- Node.js
+- Node.j
 
 The application also uses Mongoose, a simple schema-based solution to model application data that makes it easier to work with MongoDB in Node.js.
 
