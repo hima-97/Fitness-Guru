@@ -19,7 +19,7 @@
 // It also features a unique ID generation for new exercises, ensuring data integrity and traceability.
 
 import React from "react";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import $ from "jquery";
 import 'bootstrap';
 import Form from "react-bootstrap/Form";
@@ -31,57 +31,48 @@ import ReactHtmlParser from 'react-html-parser';
 import "./CreateExercise.css";
 import Loader from 'react-loader-spinner';
 
+// Function to generate a unique object ID using a combination of current timestamp and random values
 function objectID() {
     const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) =>
-    s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h));
-    return(ObjectId);
+        s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h));
+    return (ObjectId);
 }
 
-const ExxCategory = ({categories, title, category, user, workoutID, handleAddExercise}) => {
+// Component for selecting exercises from a category, loads data from API or given categories
+const ExxCategory = ({ categories, title, category, user, workoutID, handleAddExercise }) => {
 
     const [exercises, setExercises] = useState();
     const [loading, setLoading] = useState(true);
 
-    const handleCreateExerciseObject = () => {
-        setCustom(false);
-        exercise.workout = workoutID;
-        exercise._id = exxID;
-        exercise.googleID = user.id;
-        exercise.name = document.getElementById("exerciseName").value;
-        exercise.description = document.getElementById("exerciseNotes").value;
-        axios.post("/exercises", exercise)
-            .catch((err) => console.log(err))
-        if(handleAddExercise)
-            handleAddExercise(exercise);
-    };
-    
+    // Fetches exercises for a category from an API
     useEffect(() => {
-        if(categories){
-            setExercises(categories[category-8]);
+        if (categories) {
+            setExercises(categories[category - 8]);
             setLoading(false);
         }
-        if(!exercises){
+        if (!exercises) {
             axios.get(`https://wger.de/api/v2/exercise/?limit=100&offset=0&language=2&category=${category}`)
-                    .then((res) => setExercises(res.data.results))
-                    .then(() => setLoading(false))
-                    .catch((error) => console.log(error))
+                .then((res) => setExercises(res.data.results))
+                .then(() => setLoading(false))
+                .catch((error) => console.log(error))
         }
-    }, [])
+    }, [categories, category, exercises])
 
-    return(
-    <div className="dropdown">
-        <DropdownButton id="dropdown-item-button" title={title}>
-            {loading && <Loader id="loadingIcon" type="TailSpin" color="black" height={50} width={50}/>}
-            {!loading && 
-            <div id="exercises-dropdown">
-                {exercises && exercises.map(exercise => <Exx e={exercise} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>)}
-            </div>}
-        </DropdownButton>
-    </div>
+    return (
+        <div className="dropdown">
+            <DropdownButton id="dropdown-item-button" title={title}>
+                {loading && <Loader id="loadingIcon" type="TailSpin" color="black" height={50} width={50} />}
+                {!loading && 
+                <div id="exercises-dropdown">
+                    {exercises && exercises.map(exercise => <Exx e={exercise} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>)}
+                </div>}
+            </DropdownButton>
+        </div>
     )
 }
 
-const Exx = ({e, user, workoutID, handleAddExercise}) => {
+// Component for displaying and handling exercise selection via modal
+const Exx = ({ e, user, workoutID, handleAddExercise }) => {
 
     let exercise = {};
     const [show, setShow] = useState(false);
@@ -90,143 +81,133 @@ const Exx = ({e, user, workoutID, handleAddExercise}) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    // Handles adding a new exercise
     const handleAddExx = () => {
         exercise.name = e.name;
         exercise.description = e.description;
         exercise.notes = document.getElementById("notesArea").value;
-        //exercise.workout = workoutID;
         exercise.googleId = user.id;
         exercise._id = exxID;
         axios.post("/exercises", exercise)
             .catch((err) => console.log(err))
 
-        if(!workoutID){
+        if (!workoutID) {
             window.location.reload();
         }
-       
-        if(handleAddExercise)
+
+        if (handleAddExercise)
             handleAddExercise(exercise)
         handleClose();
     }
 
     return (
-    <div className="exercise">
-        {/* Displaying all available exercises after button for a specific muscle group is clicked: */}
-        <Button variant="primary" onClick={handleShow}>
-            {e.name}
-        </Button>
-
-        {/* Displaying pop up window after button for a specific exercise for a specific muscle group is clicked: */}
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-            <Modal.Title>{e.name}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <div id="exerciseDesc">
-                    <h5>Description</h5>
-                    {ReactHtmlParser(e.description)}
-                </div>
-                <div id="exerciseNotes">
-                    <h5>Notes</h5>
-                    <textarea id="notesArea" />
-                </div>
-                
-            </Modal.Body>
-            <Modal.Footer>
-            <Button variant="primary" onClick={handleAddExx}>
-                Add Exercise
+        <div className="exercise">
+            <Button variant="primary" onClick={handleShow}>
+                {e.name}
             </Button>
-            <Button variant="secondary" onClick={handleClose}>
-                Close
-            </Button>
-            </Modal.Footer>
-        </Modal>
-    </div>
-  );
 
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{e.name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div id="exerciseDesc">
+                        <h5>Description</h5>
+                        {ReactHtmlParser(e.description)}
+                    </div>
+                    <div id="exerciseNotes">
+                        <h5>Notes</h5>
+                        <textarea id="notesArea" />
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleAddExx}>
+                        Add Exercise
+                    </Button>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
+    );
 }
 
-// Component takes in handler function that handles where to add the exercise:
+// Main component for creating exercises, includes options for category selection and custom exercise entry
 const CreateExercise = ({ inSplit, workout, categories, workoutID, handleAddExercise, user }) => {
     let exercise = {};
     const [custom, setCustom] = useState(false);
     const [exxID, setExxID] = useState(objectID())
 
+    // Handles creating an exercise object for custom inputs
     const handleCreateExerciseObject = () => {
         setCustom(false);
         exercise.workout = workoutID;
+        exercise._id = ex
         exercise._id = exxID;
         exercise.googleId = user.id;
         exercise.name = document.getElementById("exerciseName").value;
         exercise.description = document.getElementById("exerciseDescription").value;
         exercise.notes = document.getElementById("exerciseNotes").value;
-        if(!inSplit){
+
+        // Post the new exercise to the server; reload the page if not part of a split or categories are undefined
+        if (!inSplit) {
             axios.post("/exercises", exercise)
-            .catch((err) => console.log(err))
+                .catch((err) => console.log(err));
         }
-        if(!categories){
+        if (!categories) {
             window.location.reload();
         }
-        if(handleAddExercise)
+        if (handleAddExercise)
             handleAddExercise(exercise);
     };
 
     return (
         <>
-        {/* All muscle group buttons for when an exercise is being created: */}
-        <div id="selectExerciseCategory">
-            <ExxCategory categories={categories} className="category" title={"Arms"} category={8} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>
-            <ExxCategory categories={categories} className="category" title={"Legs"} category={9} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>
-            <ExxCategory categories={categories} className="category" title={"Abs"} category={10} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>
-            <ExxCategory categories={categories} className="category" title={"Chest"} category={11} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>
-            <ExxCategory categories={categories} className="category" title={"Back"} category={12} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>
-            <ExxCategory categories={categories} className="category" title={"Shoulders"} category={13} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>
-            <ExxCategory categories={categories} className="category" title={"Calves"} category={14} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise}/>
-            <Button class="btn btn-success" onClick={() => setCustom(true)}>Custom</Button>
-        </div>
+            {/* Section for category selection, displays buttons for each muscle group */}
+            <div id="selectExerciseCategory">
+                <ExxCategory categories={categories} className="category" title={"Arms"} category={8} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise} />
+                <ExxCategory categories={categories} className="category" title={"Legs"} category={9} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise} />
+                <ExxCategory categories={categories} className="category" title={"Abs"} category={10} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise} />
+                <ExxCategory categories={categories} className="category" title={"Chest"} category={11} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise} />
+                <ExxCategory categories={categories} className="category" title={"Back"} category={12} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise} />
+                <ExxCategory categories={categories} className="category" title={"Shoulders"} category={13} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise} />
+                <ExxCategory categories={categories} className="category" title={"Calves"} category={14} user={user} workoutID={workoutID} handleAddExercise={handleAddExercise} />
+                <Button class="btn btn-success" onClick={() => setCustom(true)}>Custom</Button>
+            </div>
 
-        {/* Form for when "Custom" button is clicked: */}    
-        <div id="form">
-            <br/>
-            {custom && <><Form className="formBodyExercise">
-                <Form.Group
-                    className="mb-3"
-                    controlId="formBasicExercise"
-                    name="name"
-                >
-                    <Form.Label>Exercise Name</Form.Label>
-                    <input
-                        className="formInput"
-                        type="text"
-                        placeholder="Enter exercise"
-                        id="exerciseName"
-                    />
-                </Form.Group>
+            {/* Form section for adding custom exercises */}
+            <div id="form">
+                <br />
+                {custom && (
+                    <>
+                        <Form className="formBodyExercise">
+                            <Form.Group className="mb-3" controlId="formBasicExercise" name="name">
+                                <Form.Label>Exercise Name</Form.Label>
+                                <input className="formInput" type="text" placeholder="Enter exercise" id="exerciseName" />
+                            </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicSets">
-                    <Form.Label>Description</Form.Label>
-                    <input type="textarea" className="formInput" placeholder="Description" id="exerciseDescription" />
-                </Form.Group>
+                            <Form.Group className="mb-3" controlId="formBasicSets">
+                                <Form.Label>Description</Form.Label>
+                                <input type="textarea" className="formInput" placeholder="Description" id="exerciseDescription" />
+                            </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicNotes">
-                    <Form.Label>Notes</Form.Label>
-                    <input
-                        type="textarea"
-                        className="formInput"
-                        placeholder="Exercise Notes"
-                        id="exerciseNotes"
-                    />
-                </Form.Group>
-            </Form>
-            <Button
-                variant="primary"
-                id="addExercise"
-                type="button"
-                onClick={handleCreateExerciseObject}
-            >
-                Add Exercise
-            </Button></>}
-        </div>
+                            <Form.Group className="mb-3" controlId="formBasicNotes">
+                                <Form.Label>Notes</Form.Label>
+                                <input type="textarea" className="formInput" placeholder="Exercise Notes" id="exerciseNotes" />
+                            </Form.Group>
+                        </Form>
+                        <Button
+                            variant="primary"
+                            id="addExercise"
+                            type="button"
+                            onClick={handleCreateExerciseObject}
+                        >
+                            Add Exercise
+                        </Button>
+                    </>
+                )}
+            </div>
         </>
     );
 };
