@@ -5,14 +5,14 @@ This application helps people who go to the gym keep track of their progress bot
 The app allows users to create custom workout plans and share their workouts with other people in the fitness community. 
 Users are able to add exercises to their custom splits and workouts.
 
-# Software Stack
+# Technology Stack
 
 Fitness Guru is built using the MERN stack:
 
 - MongoDB
 - Express
 - React
-- Node.j
+- Node.js
 
 The application also uses Mongoose, a simple schema-based solution to model application data that makes it easier to work with MongoDB in Node.js.
 
@@ -49,7 +49,109 @@ https://github.com/hima-97/Fitness-Guru/blob/master/docs/MERN.md
 -   You may not be able to run the app locally without a Google Client ID for OAuth. Don't worry, we will update our instructions soon!
 -   The "Last Updated" time for the Profile page does not update correctly. To reproduce, update the profile. The "Last Updated" time will not update.
 
-# Code Stucture:
+# Project Structure
+```
+Fitness-Guru/
+│
+├── client/
+│   ├── node_modules/
+│   ├── public/
+│   ├── index.html/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── workout/
+│   │   │   │   ├── CreateExercise.js
+│   │   │   │   ├── CreateExercise.css
+│   │   │   │   ├── CreateSplit.js
+│   │   │   │   ├── CreateSplit.css
+│   │   │   │   ├── CreateWorkout.js
+│   │   │   │   ├── CreateWorkout.css
+│   │   │   │   ├── Exercise.js
+│   │   │   │   ├── Exercise.css
+│   │   │   │   ├── ListExercises.js
+│   │   │   │   ├── ListExercises.css
+│   │   │   │   ├── ListSplits.js
+│   │   │   │   ├── ListSplits.css
+│   │   │   │   ├── ListWorkouts.js
+│   │   │   │   ├── ListWorkouts.css
+│   │   │   │   ├── PublicSplits.js
+│   │   │   │   ├── Split.js
+│   │   │   │   ├── Split.css
+│   │   │   │   ├── Workout.js
+│   │   │   │   └── Workout.css
+│   │   │   ├── contai.css
+│   │   │   ├── Chart.js
+│   │   │   ├── Exercise.js
+│   │   │   ├── Footer.js
+│   │   │   ├── Layout.js
+│   │   │   ├── NavBar.js
+│   │   │   ├── Profile.js
+│   │   │   ├── ProfilePicture.js
+│   │   │   ├── PublicSplits.js
+│   │   │   ├── Repetitions.js
+│   │   │   ├── TrackedExercises.js
+│   │   │   └── Weight.js
+│   │   ├── pages/
+│   │   │   ├── CheckingSignedIn.js
+│   │   │   ├── CreateWorkout.js
+│   │   │   ├── Home.js
+│   │   │   ├── MyExercises.js
+│   │   │   ├── MyExercises.css
+│   │   │   ├── MySplits.js
+│   │   │   ├── MyWeights.js
+│   │   │   ├── MyWorkouts.js
+│   │   │   ├── PageNotFound.js
+│   │   │   ├── Private.js
+│   │   │   ├── Profile.js
+│   │   │   ├── ProgressPage.js
+│   │   │   ├── PublicSplits.js
+│   │   │   └── WorkoutPage.js
+│   │   ├── test/
+│   │   ├── utils/
+│   │   │   ├── compare.js
+│   │   │   ├── get-user.js
+│   │   │   └── objectID.js
+│   │   ├── App.js
+│   │   ├── App.css
+│   │   ├── Index.js
+│   │   └── Index.css
+│   ├── package.json
+├── config/
+│   ├── db.js
+│   ├── routes/
+│   │   ├── exercise.js
+│   │   ├── index.js
+│   │   ├── repetitions.js
+│   │   ├── split.js
+│   │   ├── trackedExercises.js
+│   │   ├── user.js
+│   │   ├── weight.js
+│   │   └── workout.js
+├── docs/
+│   ├── DEPLOY.md
+│   ├── DESIGN.md
+│   ├── MANUAL.md
+│   └── MERN.md
+├── models/
+│   ├── Exercise.js
+│   ├── Repetitions.js
+│   ├── Split.js
+│   ├── TrackedExercises.js
+│   ├── User.js
+│   ├── Weight.js
+│   └── Workout.js
+├── team/
+│   ├── CONTRIBS.md
+│   ├── LEADERSHIP.md
+│   ├── LEARNING.md
+│   ├── problem_scenario.md
+│   ├── TESTING.md
+│   └── user_journey.md
+├── .prettierrc
+├── index.js
+├── package.json
+└── README.md
+```
 
 -   .vscode: <br>
     This folder typically contains configuration files for the Visual Studio Code text editor, such as settings and launch configurations.
