@@ -1,5 +1,12 @@
 // This is where you actually create the front-end React app
 // This is the main React app with the code that is going to be displayed
+// The App.js file is the core of the React front-end application.
+
+
+// The code here handles routing and state management for user authentication, enabling or restricting access to different parts of the app based on the user's sign-in status. 
+// The app utilizes react-router-dom for navigation between components, making different URLs correspond to different pages in the app, such as profiles, workouts, and exercises. 
+// Key functionalities include dynamic component rendering based on authentication status and integration of Google sign-in for user authentication, 
+// which is managed through asynchronous calls and state updates.
 
 import React, { useState } from "react";
 

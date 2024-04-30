@@ -1,45 +1,52 @@
+/* Apply global styles to the entire body of the document */
 body {
-    margin: 0;
+    margin: 0; /* Remove default margin to eliminate unwanted white spaces around the edges */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
         "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+        "Helvetica Neue", sans-serif; /* Set a prioritized list of font families for a consistent typography across different browsers and operating systems */
+    -webkit-font-smoothing: antialiased; /* Enhance the legibility of fonts on macOS and iOS browsers */
+    -moz-osx-font-smoothing: grayscale; /* Improve text rendering in Firefox on Mac by reducing color fringing */
 }
 
+/* Style settings for <code> elements to enhance visibility and readability */
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
+        monospace; /* Use monospaced fonts for equal character width to align code properly */
 }
 
+/* Styling for footer element */
 .footer {
-    margin-top: 1rem;
-    padding: 1rem;
-    background-color: lightblue;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
+    margin-top: 1rem; /* Adds margin on top to separate from content above */
+    padding: 1rem; /* Adds padding inside the footer for spacing between the content and borders */
+    background-color: lightblue; 
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; /* Ensures the footer stretches across the full width of the viewport */
+    text-align: center; /* Centers the text inside the footer */
 }
 
+/* Styling for navigation components with class "color-nav" */
 .color-nav {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background-color: lightskyblue;
+    margin-bottom: 1rem; 
+    padding: 1rem; 
+    background-color: lightskyblue; /* Sets a slightly darker shade of light blue compared to the footer */
 }
 
+/* Additional styling for <h4> elements */
 h4{
-    color: rgba(20, 149, 235, 0.884);
-    padding: 0.5rem;
-    font-size:xx-large;
+    color: rgba(20, 149, 235, 0.884); /* Sets the text color using RGBA for a custom blue with slight transparency */
+    padding: 0.5rem; /* Adds padding inside <h4> for spacing around the text */
+    font-size: xx-large; /* Sets the text size to extra-extra-large for emphasis */
 }
 
+/* Flex container setup for dynamic and responsive layout design */
 .flex-container {
-    display: flex;
-    flex-wrap: wrap;
-  }
+    display: flex; /* Enables flexible box layout to align children horizontally or vertically as specified */
+    flex-wrap: wrap; /* Allows flex items to wrap onto multiple lines as needed */
+}
   
-  .flex-container > div {
-    background-color: #f1f1f100;
-  }
+/* Styling for direct children (divs) of flex container */
+.flex-container > div {
+    background-color: #f1f1f100; /* Sets a fully transparent background for flex items */
+}

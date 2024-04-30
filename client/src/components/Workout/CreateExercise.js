@@ -13,6 +13,11 @@
 // objectID() is a function which returns a unique ID of the exercise.
 // The component makes use of the useEffect hook which is used to set the state of exxID to the value returned by the objectID() function.
 
+// The CreateExercise.js component in the Fitness Guru application is a complex React component that manages the creation and addition of exercises to user-defined workout routines. 
+// It includes functionality to fetch pre-defined exercise categories from an external API and allows users to define custom exercises. 
+// The component utilizes React hooks for state management, React-Bootstrap for modal dialogs and forms, and axios for HTTP requests to interact with the backend. 
+// It also features a unique ID generation for new exercises, ensuring data integrity and traceability.
+
 import React from "react";
 import {useState, useEffect} from "react";
 import $ from "jquery";
