@@ -1,26 +1,41 @@
-// This code defines a React functional component named CreateSplit. 
-// This component is used to create a new split, which is a collection of workouts. 
-// The component receives a prop named handleAddSplit and another prop named closePrompt, both of which are passed down from the parent component. 
-// It also receives a prop named user which is the user's googleId.
-// The component starts by importing several modules that are needed for it to function properly.
-// These modules include: React, useState and $ from the react package, bootstrap, CreateWorkout and ListWorkouts from the ./ directory, Button, Form, and axios from the react-bootstrap package and ./CreateSplit.css from the ./ directory.
-// The component then defines a function named objectID which creates a new object ID. This function is used to generate a unique ID for the split that is being created.
-// The component then defines a constant CreateSplit which is a React functional component that returns JSX. 
-// This component receives the handleAddSplit and closePrompt props from the parent component and the user prop, which is the user's googleId.
-// The component starts by defining several state variables: workouts, showAddWorkout, showAddWorkout1, and splitID. 
-// The workouts state variable is used to store the workouts that belong to the split, the showAddWorkout state variable is used to toggle 
-// the visibility of the "Create Workout" modal, the showAddWorkout1 state variable is used to toggle the visibility of the "Add Workout" button, 
-// and the splitID state variable is used to store the unique ID of the split being created.
-// The component then defines several event handlers: closeWorkoutModal, openWorkoutModal, closeSplitModal, handleSetShowAddWorkout, handleAddWorkout, and handleCreateSplitObject. 
-// These event handlers are used to perform various actions such as closing and opening modals, toggling the visibility of elements, and handling the creation of a new split.
-// The handleCreateSplitObject event handler is called when the user submits the form to create a new split. It starts by checking if the input field for the split name is empty. 
-// If it is, the border of the input field turns red and the function returns. 
-// If the input field is not empty, the function proceeds to create a new split object and assigns the values of the input fields to its properties. 
-// It also assigns the value of the workouts state variable to the workouts property of the split object and the splitID state variable to the _id property of the split object. 
-// The handleAddSplit callback function is then called and passed the split object as an argument. The closeSplitModal function is also called to close the modal and reset the form.
-// The component then renders a form that contains several input fields and buttons for the user to interact with. 
-// The form includes an input field for the split name, an input field for notes, and a button that opens the "Create Workout" modal. 
-// The component also renders the ListWorkouts component, which displays the workouts that have been added to the split.
+// The CreateSplit.js component in the Fitness Guru application is a comprehensive React component for creating workout splits, managing workouts, and ensuring data integrity.
+
+// **Imports**
+// It imports several modules:
+// - **React:** Main library for building user interfaces.
+// - **useState, $:** Hooks and jQuery for state management and modal handling.
+// - **Bootstrap, CreateWorkout, ListWorkouts:** UI components and utilities for workout management.
+// - **Button, Form, axios:** React-Bootstrap components and HTTP client for backend interaction.
+// - **Custom CSS:** 'CreateSplit.css' for component styling.
+
+// **objectID Function**
+// Generates a unique ID for each split.
+
+// **CreateSplit Component**
+// CreateSplit is a functional component that receives `handleAddSplit`, `closePrompt`, and `user` (Google ID) as props.
+// - **State Management:**
+//   - `workouts`: Stores the workouts included in the split.
+//   - `showAddWorkout`: Toggles visibility of the "Create Workout" modal.
+//   - `showAddWorkout1`: Toggles visibility of the "Add Workout" button.
+//   - `splitID`: Stores the unique ID of the split being created.
+// - **Event Handlers:**
+//   - `closeWorkoutModal`: Closes the "Create Workout" modal.
+//   - `openWorkoutModal`: Opens the "Create Workout" modal.
+//   - `closeSplitModal`: Closes the "Create Split" modal and resets the form.
+//   - `handleSetShowAddWorkout`: Toggles visibility of workout-related modals.
+//   - `handleAddWorkout`: Adds a workout to the split.
+//   - `handleCreateSplitObject`: Validates input fields, creates a new split object, assigns properties (including `workouts` and `splitID`), and calls `handleAddSplit` to pass the split object to the parent component.
+// - **Return Statement:**
+//   - **Form:** Includes input fields for the split name, notes, and buttons for managing workouts.
+//   - **ListWorkouts Component:** Displays the workouts added to the split.
+
+// **Summary**
+// - **Split Creation:** Enables users to create workout splits with a name, notes, and included workouts.
+// - **Workout Management:** Integrates CreateWorkout and ListWorkouts for adding and viewing workouts.
+// - **Form Management and Validation:** Ensures required fields are not empty, particularly the split name.
+// - **State and Modal Management:** Utilizes jQuery and React hooks for state and modal management.
+// - **Unique ID Generation:** Maintains data integrity through unique identifiers for each split.
+
 
 import React from "react";
 import { useState } from "react";

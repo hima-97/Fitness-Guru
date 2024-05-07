@@ -1,22 +1,48 @@
-// This file contains a React component called CreateWorkout. 
-// It's responsible for creating a new workout, and it allows the user to add exercises to that workout.
-// The component starts by importing React's useState hook, the CreateExercise component, the ListExercises component, and the axios library for making HTTP requests.
-// The component has a state variable called exercises which is an array that stores all the exercises that are added to the workout. 
-// The component also has a state variable called showAddExercise which is a boolean value that determines whether to show or hide the CreateExercise component.
-// The component has a function handleAddExercise which takes in an exercise object as an argument. 
-// It then concatenates this exercise object to the existing exercises array, updating the state and re-rendering the component.
-// The component also has a function handleSetShowAddExercise which is an event handler that is triggered when the user clicks on the "Add Exercise" button. 
-// This function sets the showAddExercise state variable to true, which in turn renders the CreateExercise component, allowing the user to create a new exercise.
-// The component also has a function handleClose which is an event handler that is triggered when the user clicks on the "Close" button. 
-// This function clears the input field and sets the showAddExercise state variable to false, hiding the CreateExercise component.
-// The component also has a function handleCreateWorkoutObject which is an event handler that is triggered when the user clicks on the "Save" button. 
-// This function takes the name of the workout and the notes of the workout, and the exercises array that has been added to the workout, and creates an object called workout. 
-// This workout object is then passed to the handleAddWorkout function as an argument, which is a prop passed down from the parent component.
-// The component also has a function getCategoryData to make an axios request to an external API to get the exercises data for a given category, and sets the state for each category with this data.
-// The component also has a useEffect which is used to get the data for all 7 categories of exercises when the component is mounted.
-// The component is rendered with a form that has input fields for the name and notes of the workout. 
-// It also has a button to add exercises to the workout, a button to save the workout and a button to close the modal.
-// It also has a ListExercises component that is rendered with the exercises that have been added to the workout.
+// The CreateWorkout.js component in the Fitness Guru application enables users to create and manage workout plans, allowing seamless addition of exercises and integration with workout splits.
+
+// **Imports**
+// It imports several modules:
+// - **React's useState Hook:** For managing component state.
+// - **CreateExercise, ListExercises:** Components for exercise creation and visualization.
+// - **axios:** HTTP client for backend interaction.
+// - **Custom CSS:** 'CreateWorkout.css' for component styling.
+
+// **CreateWorkout Component**
+// CreateWorkout is a functional component that receives `handleAddWorkout` as a prop.
+// - **State Management:**
+//   - `exercises`: Stores all exercises added to the workout.
+//   - `showAddExercise`: Toggles visibility of the "Create Exercise" component.
+// - **Event Handlers:**
+//   - `handleAddExercise`: Concatenates a new exercise to the `exercises` array.
+//   - `handleSetShowAddExercise`: Toggles visibility of the "Create Exercise" component.
+//   - `handleClose`: Clears input fields and hides the "Create Exercise" component.
+//   - `handleCreateWorkoutObject`: Validates input fields, creates a workout object (name, notes, exercises), and passes it to `handleAddWorkout`.
+//   - `getCategoryData`: Fetches exercise data for a given category using `axios`.
+// - **useEffect Hook:**
+//   - Fetches exercise data for all seven categories upon component mount, utilizing `getCategoryData`.
+
+// **Return Statement:**
+// - **Form:**
+//   - Input fields for workout name and notes.
+//   - Buttons for adding exercises, saving the workout, and closing the modal.
+// - **ListExercises Component:**
+//   - Displays exercises added to the workout.
+
+// **Summary**
+// - **Workout Creation:** Allows users to input workout names, notes, and add exercises for custom routines.
+// - **Exercise Management:**
+//   - **CreateExercise Component:** Enables dynamic addition of exercises.
+//   - **ListExercises Component:** Visualizes exercises added to the workout.
+// - **Workout Organization:**
+//   - **Split Integration:** Workouts can be linked to splits via `splitID`.
+//   - **Exercise Categorization:** Exercises are grouped into muscle categories for better selection.
+// - **State Management and Validation:**
+//   - React hooks manage state for exercises and conditional rendering.
+//   - Input validation ensures proper workout name entry.
+// - **Loader Integration:** Displays a loading animation during exercise data loading.
+// - **Error Handling:** Manages errors during HTTP requests via `axios`.
+
+
 
 import React from 'react';
 import {useState, useEffect, useRef} from 'react';

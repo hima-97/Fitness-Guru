@@ -13,7 +13,8 @@
 //   - `loading` (initially true).
 // - **Functionality:**
 //   - `handleCreateExerciseObject`: Creates an exercise object based on user input and posts it to the server using `axios.post`.
-//   - **useEffect Hook:** Fetches data from the external API `https://wger.de/api/v2/exercise/` based on the `category` prop, updates `exercises` with the received data, and sets `loading` to false.
+//   - **useEffect Hook:** Fetches data from the external API `https://wger.de/api/v2/exercise/` based on the `category` prop, 
+//                         updates `exercises` with the received data, and sets `loading` to false.
 // - **Return Statement:**
 //   - **Dropdown Button**: Allows category selection.
 //   - **Exercise Container (div):** Displays exercises or a loading spinner.
