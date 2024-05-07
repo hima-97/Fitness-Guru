@@ -44,166 +44,158 @@
 
 
 
-import React from 'react';
-import {useState, useEffect, useRef} from 'react';
-import CreateExercise from './CreateExercise';
-import ListExercises from './ListExercises';
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import './CreateWorkout.css';
-import axios from 'axios';
-import Loader from 'react-loader-spinner';
+import React from 'react'; // React library import
+import { useState, useEffect, useRef } from 'react'; // Importing hooks from React
+import CreateExercise from './CreateExercise'; // Importing the CreateExercise component
+import ListExercises from './ListExercises'; // Importing the ListExercises component
+import Button from "react-bootstrap/Button"; // Importing Button component from react-bootstrap
+import Form from "react-bootstrap/Form"; // Importing Form component from react-bootstrap
+import './CreateWorkout.css'; // Importing styles for CreateWorkout
+import axios from 'axios'; // Axios for making API requests
+import Loader from 'react-loader-spinner'; // Loader component for loading indicator
 
-const CreateWorkout = ({closeModal,splitID, handleAddWorkout, user}) => {
-    let workout = {};
+const CreateWorkout = ({ closeModal, splitID, handleAddWorkout, user }) => {
+    let workout = {}; // Initialize an empty workout object
 
+    // State variables for managing exercises, visibility of Add Exercise forms, and loading states
     const [exercises, setExercises] = useState([]);
     const [showAddExercise, setShowAddExercise] = useState(false);
     const [showAddExercise1, setShowAddExercise1] = useState(true);
-    //const [workoutID, setWorkoutID] = useState(objectID());
 
-    const[arms, setArms] = useState();
-    const[legs, setLegs] = useState();
-    const[chest, setChest] = useState();
-    const[back, setBack] = useState();
-    const[shoulders, setShoulders] = useState();
-    const[calves, setCalves] = useState();
-    const[abs, setAbs] = useState();
-    const[categories, setCategories] = useState([]);
-    const[loadingExercises, setLoadingExercises] = useState(true);
-    const notInitRender = useRef(false);
+    const [arms, setArms] = useState(); // State for exercises in the "Arms" category
+    const [legs, setLegs] = useState(); // State for exercises in the "Legs" category
+    const [chest, setChest] = useState(); // State for exercises in the "Chest" category
+    const [back, setBack] = useState(); // State for exercises in the "Back" category
+    const [shoulders, setShoulders] = useState(); // State for exercises in the "Shoulders" category
+    const [calves, setCalves] = useState(); // State for exercises in the "Calves" category
+    const [abs, setAbs] = useState(); // State for exercises in the "Abs" category
+    const [categories, setCategories] = useState([]); // State for holding all exercise categories
+    const [loadingExercises, setLoadingExercises] = useState(true); // Loading state for exercises
+    const notInitRender = useRef(false); // Ref to handle initial render
 
+    // Function to fetch exercise data based on category and update the corresponding state
     const getCategoryData = (set, cat) => {
         axios.get(`https://wger.de/api/v2/exercise/?limit=100&offset=0&language=2&category=${cat}`)
-        .then((res) => set(res.data.results))
-        .catch((error) => console.log(error))
+            .then((res) => set(res.data.results))
+            .catch((error) => console.log(error))
     }
 
+    // useEffect to fetch exercises data by category when the component mounts
     useEffect(() => {
-        if(!arms){
-            getCategoryData(setArms, 8);
+        if (!arms) {
+            getCategoryData(setArms, 8); // Fetch exercises in the "Arms" category
         }
-        if(!legs)
-            getCategoryData(setLegs, 9);
-        if(!abs)
-            getCategoryData(setAbs, 10);
-        if(!chest)
-            getCategoryData(setChest, 11);
-        if(!back)
-            getCategoryData(setBack, 12);
-        if(!shoulders)
-            getCategoryData(setShoulders, 13);
-        if(!calves)
-            getCategoryData(setCalves, 14);
-    },[])
-    
+        if (!legs)
+            getCategoryData(setLegs, 9); // Fetch exercises in the "Legs" category
+        if (!abs)
+            getCategoryData(setAbs, 10); // Fetch exercises in the "Abs" category
+        if (!chest)
+            getCategoryData(setChest, 11); // Fetch exercises in the "Chest" category
+        if (!back)
+            getCategoryData(setBack, 12); // Fetch exercises in the "Back" category
+        if (!shoulders)
+            getCategoryData(setShoulders, 13); // Fetch exercises in the "Shoulders" category
+        if (!calves)
+            getCategoryData(setCalves, 14); // Fetch exercises in the "Calves" category
+    }, [])
 
-
+    // useEffect to update the loading state after the initial render
     useEffect(() => {
-        if(notInitRender.current){
-            setLoadingExercises(false);
+        if (notInitRender.current) {
+            setLoadingExercises(false); // Stop loading once data is fetched
+        } else {
+            notInitRender.current = true; // Set flag for subsequent renders
         }
-        else{
-            notInitRender.current = true;
-        }
-        
     }, [arms])
-  
+
+    // Function to add an exercise to the current workout
     const handleAddExercise = (exercise) => {
-      const newExercises = exercises.concat(exercise);
-      setExercises(newExercises);
-      setShowAddExercise1(true);
-      return(
-        setShowAddExercise(false)
-      )
+        const newExercises = exercises.concat(exercise); // Add the new exercise to the list
+        setExercises(newExercises); // Update state
+        setShowAddExercise1(true); // Hide Add Exercise button
+        return setShowAddExercise(false); // Close the Add Exercise form
     }
 
+    // Function to set up and show the Add Exercise form
     const handleSetShowAddExercise = (e) => {
         e.preventDefault();
-        setCategories([arms,legs,chest,back,shoulders,calves,abs]);
-        setShowAddExercise1(false);
-        return(setShowAddExercise(true));
+        setCategories([arms, legs, chest, back, shoulders, calves, abs]); // Populate categories
+        setShowAddExercise1(false); // Hide Add Exercise button
+        return setShowAddExercise(true); // Show the Add Exercise form
     }
 
+    // Function to close the workout modal and reset form inputs
     const handleClose = () => {
-        document.getElementById('workoutName').value = '';
-        setShowAddExercise1(true);
-        setShowAddExercise(false);
-        closeModal();
+        document.getElementById('workoutName').value = ''; // Clear workout name input
+        setShowAddExercise1(true); // Show Add Exercise button
+        setShowAddExercise(false); // Close the Add Exercise form
+        closeModal(); // Close the modal
     }
 
+    // Function to validate and create a new workout object
     const handleCreateWorkoutObject = () => {
-        //setWorkoutID(objectID());
-      
-        if(!document.getElementById('workoutName').value){
-            document.getElementById('workoutName').style.borderColor = "red";
+        // Check if the workout name is not empty
+        if (!document.getElementById('workoutName').value) {
+            document.getElementById('workoutName').style.borderColor = "red"; // Highlight empty input
             document.getElementById('workoutName').style.borderWidth = "4px";
-            return;
-        } 
-        workout.name = document.getElementById('workoutName').value;
-        workout.exercises = exercises;
-        workout.split = splitID;
-        workout.googleId = user.id;
-        console.log("HMMM");
-        if(splitID == null){
-            axios.post('/workouts',workout)
-                .then(window.location.reload())
-                .catch((err) => console.log(err))
+            return; // Exit function
         }
-        else{
-            axios.post('/workouts',workout)
+        workout.name = document.getElementById('workoutName').value; // Set workout name
+        workout.exercises = exercises; // Assign exercises to the workout
+        workout.split = splitID; // Assign the split ID if available
+        workout.googleId = user.id; // Assign the Google user ID
+
+        // Create the workout in the backend
+        if (splitID == null) {
+            axios.post('/workouts', workout)
+                .then(window.location.reload()) // Reload the page after successful creation
                 .catch((err) => console.log(err))
-            console.log("WORKOUT");
-            console.log(workout);
-            handleAddWorkout(workout);
+        } else {
+            axios.post('/workouts', workout)
+                .catch((err) => console.log(err))
+            handleAddWorkout(workout); // Add the workout to the parent component
         }
-        setExercises([]);
-        document.getElementById('workoutName').value='';
-        setShowAddExercise1(true);
-        setShowAddExercise(false);
-        return(
-            closeModal()
-        )
-        
+        setExercises([]); // Clear exercises
+        document.getElementById('workoutName').value = ''; // Clear workout name input
+        setShowAddExercise1(true); // Show Add Exercise button
+        setShowAddExercise(false); // Close Add Exercise form
+        return closeModal(); // Close the modal
     }
 
+    // Function to remove an exercise from the workout
     const handleRemoveExercise = (exercise) => {
-        const newExercises = exercises.filter((exx) => exx != exercise);
-        setExercises(newExercises);
-        axios.post(`/exercises/delete/${exercise._id}`);
+        const newExercises = exercises.filter((exx) => exx != exercise); // Remove the specified exercise
+        setExercises(newExercises); // Update state
+        axios.post(`/exercises/delete/${exercise._id}`); // Delete exercise from the backend
     }
 
-   return (
+    // JSX return statement for rendering the workout creation form
+    return (
+        <Form className="formBodyWorkout">
+            <Button style={{ position: 'relative', left: '670px', top: '-10px' }} variant="close" id="closeWorkoutModal" type="button" onClick={handleClose}>
+            </Button>
+            <Form.Group id="workoutNameInput" className="mb-3" controlId="formBasicExercise">
+                <Form.Label className="label">Workout Name</Form.Label>
+                <input type="text" placeholder="Enter workout" id="workoutName" />
+            </Form.Group>
+            {showAddExercise && <CreateExercise workoutID={1} categories={categories} handleAddExercise={handleAddExercise} user={user} />}<br /><br />
 
-    <Form className="formBodyWorkout">
-        <Button style={{position:'relative', left:'670px', top:'-10px'}}variant="close" id="closeWorkoutModal" type="button" onClick={handleClose}>
-        </Button>
-        <Form.Group id="workoutNameInput" className="mb-3" controlId="formBasicExercise">
-            <Form.Label className="label">Workout Name</Form.Label>
-            <input type="text" placeholder="Enter workout" id="workoutName"/>
-        </Form.Group>
-        
-        {showAddExercise && <CreateExercise workoutID={1} categories={categories} handleAddExercise={handleAddExercise} user={user}/>}<br /><br />
+            <div className="addExercise">
+                <div className="addButton">
+                    {loadingExercises && <><p>Loading Exercises...</p><Loader id="loadingIcon" type="TailSpin" color="black" height={50} width={50} /></>}
+                    {!loadingExercises && showAddExercise1 && <Button className="addWorkout" onClick={handleSetShowAddExercise}>Add Exercise</Button>}
+                </div>
 
-        <div className="addExercise">
-            <div className="addButton">
-            {loadingExercises && <><p>Loading Exercises...</p><Loader id="loadingIcon" type="TailSpin" color="black" height={50} width={50}/></>}
-            {!loadingExercises && showAddExercise1 && <Button className="addWorkout" onClick={handleSetShowAddExercise}>Add Exercise</Button>}
+                <div className="exerciseList">
+                    <ListExercises setAddingExercises={setExercises} addingExercises={exercises} removeExercise={handleRemoveExercise} className="exercises" exercises={exercises} />
+                </div>
             </div>
-        
-            <div className="exerciseList">
-                <ListExercises setAddingExercises={setExercises} addingExercises={exercises} removeExercise={handleRemoveExercise} className="exercises" exercises={exercises}/>
-            </div>
-           
-          
-        </div>
 
-        <Button variant="primary" id="addWorkout" type="button" onClick={handleCreateWorkoutObject} >
-            Create Workout
-        </Button>
-        
-    </Form>
-   )
-  }
+            <Button variant="primary" id="addWorkout" type="button" onClick={handleCreateWorkoutObject}>
+                Create Workout
+            </Button>
+        </Form>
+    )
+}
 
-  export default CreateWorkout;
+export default CreateWorkout;

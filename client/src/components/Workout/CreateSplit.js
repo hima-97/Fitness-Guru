@@ -37,17 +37,18 @@
 // - **Unique ID Generation:** Maintains data integrity through unique identifiers for each split.
 
 
-import React from "react";
-import { useState } from "react";
-import $ from "jquery";
-import "bootstrap";
-import CreateWorkout from "./CreateWorkout";
-import ListWorkouts from "./ListWorkouts";
-import "./CreateSplit.css";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import axios from "axios";
+import React from "react"; // React library import
+import { useState } from "react"; // Importing hooks from React
+import $ from "jquery"; // Importing jQuery for DOM manipulation
+import "bootstrap"; // Importing Bootstrap for styling and modals
+import CreateWorkout from "./CreateWorkout"; // Importing the CreateWorkout component
+import ListWorkouts from "./ListWorkouts"; // Importing the ListWorkouts component
+import "./CreateSplit.css"; // Importing styles for CreateSplit
+import Button from "react-bootstrap/Button"; // Importing Button component from react-bootstrap
+import Form from "react-bootstrap/Form"; // Importing Form component from react-bootstrap
+import axios from "axios"; // Axios for making API requests
 
+// Utility function to generate a unique identifier (similar to MongoDB ObjectId)
 function objectID() {
     const ObjectId = (
         m = Math,
@@ -60,65 +61,69 @@ function objectID() {
     return ObjectId;
 }
 
+// Main CreateSplit component definition
 const CreateSplit = ({ handleAddSplit, closePrompt, user }) => {
-    let split = {};
+    let split = {}; // Initialize an empty split object
+
+    // State variables to manage workouts, visibility of Add Workout form, and split ID
     const [workouts, setWorkouts] = useState([]);
     const [showAddWorkout, setShowAddWorkout] = useState(false);
     const [showAddWorkout1, setShowAddWorkout1] = useState(true);
     const [splitID, setSplitID] = useState(objectID());
 
+    // Function to close the CreateWorkout modal and reopen CreateSplit modal
     const closeWorkoutModal = () => {
-        $("#createWorkout").hide();
-        $("#createSplit").show();
+        $("#createWorkout").hide(); // Hide CreateWorkout modal
+        $("#createSplit").show(); // Show CreateSplit modal
     };
 
+    // Function to open the CreateWorkout modal
     const openWorkoutModal = () => {
-        $("#createWorkout").show();
-        //$('#addSplit').hide();
+        $("#createWorkout").show(); // Show CreateWorkout modal
+        // $('#addSplit').hide();
     };
 
+    // Function to close the CreateSplit modal and reset form inputs
     const closeSplitModal = () => {
-        closePrompt();
-        //$('.modal-backdrop').remove()
-        setWorkouts([]);
-        document.getElementById("name").value = "";
-        document.getElementById("notesInp").value = "";
+        closePrompt(); // Close the split modal
+        setWorkouts([]); // Clear workouts
+        document.getElementById("name").value = ""; // Clear split name input
+        document.getElementById("notesInp").value = ""; // Clear notes input
     };
 
+    // Function to show the Add Workout form
     const handleSetShowAddWorkout = (e) => {
         e.preventDefault();
-        setShowAddWorkout1(false);
-        return setShowAddWorkout(true);
+        setShowAddWorkout1(false); // Hide Add Workout button
+        return setShowAddWorkout(true); // Show Add Workout form
     };
 
+    // Function to add a workout to the split
     const handleAddWorkout = (workout) => {
-        console.log("OLD");
-        console.log(workouts);
-        console.log("NEW");
-        let newWorkouts = workouts.concat(workout);
-        console.log(newWorkouts);
-        setWorkouts(newWorkouts);
-        console.log("WORKOUTS");
-        console.log(workouts);
-        setShowAddWorkout1(true);
-        return setShowAddWorkout(false);
+        let newWorkouts = workouts.concat(workout); // Add the new workout to the list
+        setWorkouts(newWorkouts); // Update state
+        setShowAddWorkout1(true); // Show Add Workout button
+        return setShowAddWorkout(false); // Close Add Workout form
     };
 
+    // Function to validate and create a new split object
     const handleCreateSplitObject = () => {
-        if(!document.getElementById("name").value){
-            document.getElementById("name").style.borderColor="red";
+        // Check if the split name is not empty
+        if (!document.getElementById("name").value) {
+            document.getElementById("name").style.borderColor = "red"; // Highlight empty input
             document.getElementById("name").style.borderWidth = "4px";
-            return;
+            return; // Exit function
         }
-        split.name = document.getElementById("name").value;
-        split.notes = document.getElementById("notesInp").value;
-        split.workouts = workouts;
-        split._id = splitID;
-        split.googleId = user.id;
-        handleAddSplit(split);
-        closeSplitModal();
+        split.name = document.getElementById("name").value; // Set split name
+        split.notes = document.getElementById("notesInp").value; // Set split notes
+        split.workouts = workouts; // Assign workouts to the split
+        split._id = splitID; // Set split ID
+        split.googleId = user.id; // Assign Google user ID
+        handleAddSplit(split); // Add split to parent component
+        closeSplitModal(); // Close the split modal
     };
 
+    // JSX return statement for rendering the split creation form
     return (
         <Form className="splitForm">
             <Form.Group className="mb-3" controlId="formBasicExercise">
@@ -178,3 +183,4 @@ const CreateSplit = ({ handleAddSplit, closePrompt, user }) => {
 };
 
 export default CreateSplit;
+
