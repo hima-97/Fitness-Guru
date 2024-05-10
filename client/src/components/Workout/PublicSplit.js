@@ -1,18 +1,53 @@
-// This code file defines a React component called 'PublicSplit', which is used to display the information of a workout split on the front-end of the application. 
-// The component is composed of several elements, including a 'Modal' component from the 'react-bootstrap' library, a 'Card' component, a 'ListGroup' component, and a 'Button' component.
-// The component uses the 'useState' and 'useEffect' hooks from the 'react' library to manage the state and lifecycle of the component.
-// The component imports 'React' from the 'react' library, the 'Split.css' stylesheet, 'Card', 'Button', 'ListGroup', 'Modal' and 'Exercise' from the 'react-bootstrap' library, 'getUser' from '../../utils/get-user', and 'Workout' from './Workout'.
-// The component has a nested function called 'MyVerticallyCenteredModal' which is a modal for displaying the selected workout, it takes the props passed down from the parent component and sets the state of the workout and setWorkout function.
-// The 'PublicSplit' component receives the 'split' and 'user' props as its inputs. 
-// It uses the 'useState' hook to set the 'modalShow' state variable and the 'workouts' state variable. 
-// It also sets the 'selectedWorkout' state variable, which is used to keep track of the workout that is currently being viewed in the modal.
-// The 'useEffect' hook is used to fetch the workout data from the server using the '/workouts/:id' endpoint and the user id, it then filters the workouts array to only contain the ones that have the same split id as the one passed down as prop to the component.
-// The component defines a function called 'handleShowWorkout' which is called when a user clicks on a workout button. This function sets the 'selectedWorkout' state variable to the workout that the user clicked on and sets the 'modalShow' state variable to true, which causes the modal to be displayed.
-// The component returns a 'div' element with the class 'splitItem' which contains the 'Card' component, 'ListGroup' component and the modal. 
-// The Card component displays the name of the split and its notes, the ListGroup component displays the names of all the workouts in the split and the modal is used to display the selected workout.
-// When a user clicks on a workout button, the 'handleShowWorkout' function is called and the modal is displayed with the selected workout. 
-// The modal also contains a form that allows the user to copy the split to their own account by sending a POST request to the /splits/public/:id/split/:splitid endpoint.
+// The PublicSplit.js file in the Fitness Guru application defines a component for displaying a public workout split and providing detailed workout information through a modal.
 
+// **Imports**
+// It imports:
+// - **React Hooks (useState, useEffect):** For managing state and component lifecycle.
+// - **react-bootstrap Components:** Modal, Card, ListGroup, Button for UI elements.
+// - **Workout Component:** Represents individual workouts.
+// - **getUser Utility:** Retrieves user data for API requests.
+// - **Custom CSS:** 'Split.css' for component styling.
+
+// **PublicSplit Component**
+// A functional component that receives `split` and `user` as props.
+// - **State Management:**
+//   - `modalShow`: Boolean controlling the visibility of the workout modal.
+//   - `workouts`: Array of workouts associated with the split.
+//   - `selectedWorkout`: Stores the currently viewed workout in the modal.
+// - **useEffect Hook:**
+//   - Fetches workout data from the backend using the `/workouts/${user._id}` endpoint.
+//   - Filters workouts to only include those belonging to the specified `split`.
+//   - Updates the `workouts` state variable with the filtered data.
+// - **Event Handlers:**
+//   - `handleShowWorkout`: Sets `selectedWorkout` to the selected workout and enables `modalShow` to display the modal.
+// - **Nested Component (MyVerticallyCenteredModal):**
+//   - A modal that displays detailed information about a selected workout.
+//   - Takes `props` from the parent component and manages workout data using `workout` and `setWorkout`.
+// - **Return Statement:**
+//   - Wraps the split information in a div with the class `splitItem`.
+//   - Displays the `Card` component for the split's name and notes.
+//   - Uses `ListGroup` to show the associated workouts.
+//   - Displays the `MyVerticallyCenteredModal` for detailed workout information.
+
+// **Summary**
+// - **Public Split Display Workflow:**
+//   - Displays a split with its name, notes, and associated workouts.
+//   - Allows the user to copy a public split to their account via POST request.
+// - **Workout Modal:**
+//   - Provides detailed information about a workout using a modal.
+// - **State Management and API Integration:**
+//   - **State Hooks:** Manage modal visibility and workout data using `useState`.
+//   - **API Calls:** Fetches workout data via `/workouts/:id` endpoint.
+
+// Example Usage:
+
+// <PublicSplit
+//   split={split}
+//   user={user}
+// />
+
+
+// Import necessary libraries and components
 import React from "react";
 import { useState, useEffect } from "react";
 import "./Split.css";
@@ -20,84 +55,101 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Modal from "react-bootstrap/Modal";
-import Exercise from "./Exercise";
 import Workout from "./Workout";
-import getUser from "../../utils/get-user"
+import getUser from "../../utils/get-user";
 
+// Modal component that displays the selected workout details
 function MyVerticallyCenteredModal(props) {
-    const [workouts, setWorkouts] = useState(props.split.workouts)
+    // Initialize workouts state from the split's workouts prop
+    const [workouts, setWorkouts] = useState(props.split.workouts);
 
     return (
         <Modal
-            {...props}
+            {...props} // Pass modal properties down from the parent component
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            
             <div id="workoutModalPublic">
-            <Workout  split={props.split} inSplit={1} workouts={workouts} setWorkouts={setWorkouts} id="displayedWorkout" w={props.w} user={props.user} />
+                {/* Display the selected workout in the modal */}
+                <Workout
+                    split={props.split}
+                    inSplit={1}
+                    workouts={workouts}
+                    setWorkouts={setWorkouts}
+                    id="displayedWorkout"
+                    w={props.w}
+                    user={props.user}
+                />
             </div>
-        
-            
         </Modal>
     );
 }
 
-
-
+// Main Split component that displays information about the public split
 const Split = ({ split, user }) => {
+    // State to control the visibility of the workout modal
     const [modalShow, setModalShow] = useState(false);
+    // State to store the workouts in the split
     const [workouts, setWorkouts] = useState([]);
+    // State to store the currently selected workout for detailed viewing
     const [selectedWorkout, setSelectedWorkout] = useState({
         workoutName: "",
         exercises: [],
     });
 
-    const currentUser = getUser()
+    // Fetch the current user's information
+    const currentUser = getUser();
 
+    // Fetch workouts for the user and filter by the given split
     useEffect(() => {
         fetch(`/workouts/${user.id}`)
             .then((res) => res.json())
             .then((workouts) =>
-                setWorkouts(workouts.filter((w) => w.split == split)),
+                // Filter workouts that belong to the specified split
+                setWorkouts(workouts.filter((w) => w.split == split))
             );
     }, [user.id]);
 
+    // Function to handle the display of a selected workout in the modal
     const handleShowWorkout = ({ w }) => {
-        setSelectedWorkout(w);
-        return setModalShow(true);
+        setSelectedWorkout(w); // Set the selected workout
+        return setModalShow(true); // Show the modal
     };
 
     return (
         <div className="splitItem">
+            {/* Card representing the split information */}
             <Card id="splitCard" style={{ width: "20rem" }}>
                 <Card.Header id="splitName">
                     <div className="card-top">
                         <div id="top">
-                        <div>
-                            <div id="title">{split.name}</div>
-                        </div>
-                        
-                        <div>
-                        <form
-                            action={"/splits/public/" + currentUser.id + "/split/" + split._id}
-                            method="POST"
-                            class="mb-4"
-                        >
-                            <input
-                                id="copySplit"
-                                type="submit"
-                                value="Copy"
-                                class="btn btn-secondary btn-block"
-                            />
-                        </form>
+                            <div>
+                                {/* Split title */}
+                                <div id="title">{split.name}</div>
+                            </div>
+                            <div>
+                                {/* Form to copy the public split to the user's account */}
+                                <form
+                                    action={"/splits/public/" + currentUser.id + "/split/" + split._id}
+                                    method="POST"
+                                    class="mb-4"
+                                >
+                                    <input
+                                        id="copySplit"
+                                        type="submit"
+                                        value="Copy"
+                                        class="btn btn-secondary btn-block"
+                                    />
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    {/* Notes associated with the split */}
                     <div id="notes">{split.notes}</div>
                 </Card.Header>
 
+                {/* List of workouts associated with the split */}
                 <ListGroup id="workoutCards" variant="flush">
                     {split.workouts.map((w) => {
                         return (
@@ -112,6 +164,7 @@ const Split = ({ split, user }) => {
                 </ListGroup>
             </Card>
 
+            {/* Modal to display the details of the selected workout */}
             <MyVerticallyCenteredModal
                 id="workoutModal"
                 w={selectedWorkout}
@@ -125,3 +178,4 @@ const Split = ({ split, user }) => {
 };
 
 export default Split;
+

@@ -1,15 +1,55 @@
-// This code defines a React functional component called Split. This component is used to display a single split in a workout plan.
-// The component first imports a number of dependencies including React's useState and useEffect hooks, as well as several components from the react-bootstrap library. 
-// It also imports a custom component called Workout and a utility function called axios.
-// The Split component has two states modalShow and workouts. 
-// modalShow is a boolean value that determines whether or not a modal window should be displayed and workouts is an array that holds the workouts associated with the split.
-// The component also has a state selectedWorkout which is an object that holds the name of the selected workout and the exercises in it.
-// The Split component also has a nested functional component called MyVerticallyCenteredModal which is used to render the modal window when a user wants to view a workout.
-// The Split component uses the useEffect hook to call an API endpoint to fetch all workouts associated with the user and filter only the ones that belong to this split, and then set it as the workouts state.
-// The component also defines a function handleShowWorkout which is used to set the selected workout and open the modal window when a user wants to view a workout.
-// The component also defines two more functions handleDelete and handleMakePublic which are used to delete the split and make it public respectively by making a post request to the corresponding endpoints.
-// The component returns JSX that renders a Card component from the react-bootstrap library, which is used to display the split name, notes and workouts. 
-// It also renders a MyVerticallyCenteredModal component when a user wants to view a workout and also renders a Delete and Make Public button.
+// The Split.js file in the Fitness Guru application defines a component for displaying detailed workout split information and managing individual workouts through a modal.
+
+// **Imports**
+// It imports:
+// - **React Hooks (useState, useEffect):** For managing state and component lifecycle.
+// - **react-bootstrap Components:** Modal, Card, ListGroup, Button for UI elements.
+// - **Workout Component:** Represents individual workouts.
+// - **axios:** HTTP client for backend interaction.
+// - **Custom CSS:** 'Split.css' for component styling.
+
+// **Split Component**
+// A functional component that receives `split` and `user` as props.
+// - **State Management:**
+//   - `modalShow`: Boolean controlling the visibility of the workout modal.
+//   - `workouts`: Array of workouts associated with the split.
+//   - `selectedWorkout`: Stores the currently viewed workout in the modal.
+// - **useEffect Hook:**
+//   - Fetches all workouts for the user using the `/workouts/${user._id}` endpoint.
+//   - Filters workouts to only include those belonging to the specified `split`.
+//   - Updates the `workouts` state variable with the filtered data.
+// - **Event Handlers:**
+//   - `handleShowWorkout`: Sets `selectedWorkout` to the selected workout and enables `modalShow` to display the modal.
+//   - `handleDelete`: Deletes the split via a DELETE request to the backend.
+//   - `handleMakePublic`: Makes the split public via a POST request to the corresponding endpoint.
+// - **Nested Component (MyVerticallyCenteredModal):**
+//   - A modal that displays detailed information about a selected workout.
+//   - Takes `props` from the parent component and manages workout data using `workout` and `setWorkout`.
+// - **Return Statement:**
+//   - Wraps the split information in a div with the class `splitItem`.
+//   - Displays the `Card` component for the split's name and notes.
+//   - Uses `ListGroup` to show the associated workouts.
+//   - Provides "Delete" and "Make Public" buttons for managing the split.
+//   - Displays the `MyVerticallyCenteredModal` for detailed workout information.
+
+// **Summary**
+// - **Split Display Workflow:**
+//   - Displays a split with its name, notes, and associated workouts.
+//   - Provides buttons to update, delete, or make the split public.
+// - **Workout Modal:**
+//   - Shows detailed information about a workout using a modal.
+// - **State Management and API Integration:**
+//   - **State Hooks:** Manage modal visibility and workout data using `useState`.
+//   - **API Calls:** Fetches workout data via `/workouts/:id` endpoint.
+
+// Example Usage:
+
+// <Split
+//   split={split}
+//   user={user}
+// />
+
+
 
 import React from "react";
 import { useState, useEffect } from "react";
