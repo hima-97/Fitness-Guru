@@ -1,149 +1,159 @@
-// This file is used for the "Profile" component
+// The Profile.js file in the Fitness Guru application defines the Profile component, which is responsible for displaying and updating the user's profile information. This component is designed to be interactive, user-friendly, and accessible.
 
+// **Imports**
+// It imports:
+// - **React and Hooks:** For managing state and side effects within the component.
+// - **getUser:** Utility function to fetch user details.
+// - **React-Bootstrap Components:** Button and others for creating interactive and responsive UI elements.
+// - **CSS:** 'contai.css' for custom styling.
+
+// **Profile Component**
+// A functional component that:
+// - Uses `useState` and `useEffect` to manage and fetch user profile data.
+// - **Dynamic Profile Display:**
+//   - Fetches user-specific profile details such as date of birth, height, weight, and custom notes.
+//   - Displays these details dynamically in a well-organized format.
+// - **Interactive Update Mechanism:**
+//   - Incorporates a modal which is triggered by a 'Update Profile' button.
+//   - The modal provides form inputs for updating user details.
+//   - Submits the updated data to the server via a POST request, ensuring the profile is up-to-date.
+// - **Responsive and Accessible Design:**
+//   - Uses React-Bootstrap components to ensure the UI is accessible and responsive, adapting to different device screens.
+//   - Renders profile information in a clear layout, using buttons and form controls that are easy to interact with.
+
+// **Return Statement:**
+// - Renders user profile details in a structured layout.
+// - Includes an 'Update Profile' button that opens the modal for editing profile details.
+// - Uses a modal for form inputs where users can enter their updated information.
+
+// **CSS Styling:**
+// - Utilizes 'contai.css' for styling, ensuring that the profile display is visually appealing and consistent with the overall application design.
+
+// **Key Features and Functionality**
+// - **Dynamic Profile Display:** Automatically fetches and displays the current user's profile data.
+// - **Interactive Update Mechanism:** Offers an easy-to-use interface for users to update their profile details.
+// - **Responsive and Accessible Design:** Ensures that the component is usable on a variety of devices and accessible to all users.
+
+// Example Usage:
+
+// <Profile />
+
+
+// Imports necessary libraries and styles
 import React, { useState, useEffect } from "react";
 import getUser from "../utils/get-user";
 import "./contai.css";
-import {Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
-
-export default function Exercise() {
-    // It defines the component's state with the useState hook, setting the initial value of the "profile" state to an empty object:
-    // The React "useState" hook allows you to track state in a function component
-    // State generally refers to data or properties that need to be tracked in an application
+// Defines the Profile component that displays and updates user profile information
+export default function Profile() {
+    // Initializes profile state as an empty object
     const [profile, setProfile] = useState({});
 
-    // Getting current logged-in user:
+    // Retrieves current logged-in user's details
     const user = getUser();
 
-    // useEffect hook to fetch the user's profile data from the server when the component is rendered, using the user's ID as a parameter:
-    // The response is parsed as JSON and the user's profile is set as the component's state
-    // (i.e. "useEffect" hook to fetch the user's profile information from an endpoint, /user/${user.id}, and update the state with the fetched data)
+    // Fetches the user's profile data from the server when the component mounts or when the user's ID changes
     useEffect(() => {
         fetch(`/user/${user.id}`)
             .then((res) => res.json())
             .then((user) => setProfile(user));
     }, [user.id]);
 
-    // The return statement of the component is rendering the layout of the profile page, including a button labeled "Update Profile" which opens a bootstrap modal window when clicked.
-    // The modal window contains a form with several input fields for updating the user's profile information, such as date of birth, height, and weight. 
-    // Each input field is associated with a specific label, and the form is set to submit to the endpoint /user using the POST method. 
-    // The form also includes a hidden input field with the user's googleId, which is pre-populated with the value of user.id obtained from the getUser function.
-    // The console.log(profile) is only for debugging purpose to check the profile state.
-    // The ternary operator (i.e. ':' ) checks whether the profile object is empty or not. If it's empty, the modal will not be rendered.
-    // Once the form is filled and submitted, the user's profile information will be updated in the database.
+    // Renders the profile page layout, including a button to open a modal for updating profile details
     return (
         <div>
-            <div>
-                {/* Displaying "Update Profile" button: */}
-                <button
-                    type="button"
-                    class="btn btn-primary btn-block"
-                    data-toggle="modal"
-                    data-target="#updateProfile"
-                    class1 = "btn btn-outline-info"
-                    className = "bt2"
-                >
-                    Update Profile
-                </button>
-            </div>
+            {/* Button triggers the modal for updating profile information */}
+            <button
+                type="button"
+                className="btn btn-primary btn-block"
+                data-toggle="modal"
+                data-target="#updateProfile"
+            >
+                Update Profile
+            </button>
             {console.log(profile)}
             {Object.keys(profile).length === 0 ? (
+                // Displays a modal window if the profile data is available
                 <div>
                     <div
-                        class="modal fade"
+                        className="modal fade"
                         id="updateProfile"
                         tabIndex="-1"
                         role="dialog"
                         aria-labelledby="exampleModalLabel"
                         aria-hidden="true"
                     >
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5
-                                        class="modal-title"
-                                        id="exampleModalLabel"
-                                    >
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">
                                         Update Profile
                                     </h5>
                                     <button
                                         type="button"
-                                        class="close"
+                                        className="close"
                                         data-dismiss="modal"
                                         aria-label="Close"
                                     >
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="/user" method="POST" class="mb-4">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <input
-                                                type="hidden"
-                                                name="googleId"
-                                                value={user.id}
-                                                class="form-control"
-                                            />
-                                        </div>
-                                        <br />
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">
-                                                Date of Birth
-                                            </label>
+                                {/* Form for updating profile details */}
+                                <form action="/user" method="POST" className="mb-4">
+                                    <div className="modal-body">
+                                        <input
+                                            type="hidden"
+                                            name="googleId"
+                                            value={user.id}
+                                            className="form-control"
+                                        />
+                                        {/* Input fields for profile details */}
+                                        <div className="form-group">
+                                            <label htmlFor="dateOfBirth">Date of Birth</label>
                                             <input
                                                 type="date"
                                                 name="dateOfBirth"
-                                                class="form-control"
+                                                className="form-control"
                                             />
                                         </div>
-                                        <br />
-                                        <div class="form-group">
-                                            <label for="heightFeet">
-                                                Height (Feet)
-                                            </label>
+                                        <div className="form-group">
+                                            <label htmlFor="heightFeet">Height (Feet)</label>
                                             <input
                                                 type="number"
                                                 name="heightFeet"
-                                                class="form-control"
+                                                className="form-control"
                                             />
                                         </div>
-                                        <br />
-                                        <div class="form-group">
-                                            <label for="heightInches">
-                                                Height (Inches)
-                                            </label>
+                                        <div className="form-group">
+                                            <label htmlFor="heightInches">Height (Inches)</label>
                                             <input
                                                 type="number"
                                                 name="heightInches"
-                                                class="form-control"
+                                                className="form-control"
                                             />
                                         </div>
-                                        <br />
-                                        <div class="form-group">
-                                            <label for="weight">
-                                                Weight (Pounds)
-                                            </label>
+                                        <div className="form-group">
+                                            <label htmlFor="weight">Weight (Pounds)</label>
                                             <input
                                                 type="number"
                                                 name="weight"
-                                                class="form-control"
+                                                className="form-control"
                                             />
                                         </div>
-                                        <br />
-                                        <div class="form-group">
-                                            <label for="notes">Notes</label>
+                                        <div className="form-group">
+                                            <label htmlFor="notes">Notes</label>
                                             <input
                                                 type="text"
                                                 name="notes"
-                                                class="form-control"
+                                                className="form-control"
                                             />
                                         </div>
-                                        <br />
                                     </div>
-                                    <div class="modal-footer">
+                                    <div className="modal-footer">
                                         <button
                                             type="button"
-                                            class="btn btn-secondary"
+                                            className="btn btn-secondary"
                                             data-dismiss="modal"
                                         >
                                             Close
@@ -151,7 +161,7 @@ export default function Exercise() {
                                         <input
                                             type="submit"
                                             value="Update Profile"
-                                            class="btn btn-primary btn-block"
+                                            className="btn btn-primary btn-block"
                                         />
                                     </div>
                                 </form>
@@ -161,175 +171,102 @@ export default function Exercise() {
                 </div>
             ) : (
                 <div>
-                    {/* After clicking "Update Profile" button, a small window pops up: */}
+                    {/* If the profile object is not empty, display the modal and mapped profile details */}
                     {profile.map((profile) => (
                         <div>
                             <div
-                                class="modal fade"
+                                className="modal fade"
                                 id="updateProfile"
                                 tabIndex="-1"
                                 role="dialog"
                                 aria-labelledby="exampleModalLabel"
                                 aria-hidden="true"
                             >
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5
-                                                class="modal-title"
-                                                id="exampleModalLabel"
-                                            >
+                                <div className="modal-dialog" role="document">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title" id="exampleModalLabel">
                                                 Update Profile
                                             </h5>
                                             <button
                                                 type="button"
-                                                class="close"
+                                                className="close"
                                                 data-dismiss="modal"
                                                 aria-label="Close"
                                             >
-                                                <span aria-hidden="true">
-                                                    &times;
-                                                </span>
+                                                <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <form
                                             action={"/user/put/" + user.id}
                                             method="POST"
-                                            class="mb-4"
+                                            className="mb-4"
                                         >
-                                            <div class="modal-body">
-                                                <br />
-                                                <div class="form-group">
-                                                    <label for="dateOfBirth">
-                                                        Date of Birth
-                                                    </label>
+                                            <div className="modal-body">
+                                                <div className="form-group">
+                                                    <label htmlFor="dateOfBirth">Date of Birth</label>
                                                     <input
                                                         type="date"
                                                         name="dateOfBirth"
-                                                        defaultValue={
-                                                            profile.dateOfBirth
-                                                        }
-                                                        class="form-control"
+                                                        defaultValue={profile.dateOfBirth}
+                                                        className="form-control"
                                                     />
                                                 </div>
-                                                <br />
-                                                <div class="form-group">
-                                                    <label for="heightFeet">
-                                                        Height (Feet)
-                                                    </label>
+                                                <div className="form-group">
+                                                    <label htmlFor="heightFeet">Height (Feet)</label>
                                                     <input
                                                         type="number"
                                                         name="heightFeet"
-                                                        defaultValue={
-                                                            profile.heightFeet
-                                                        }
-                                                        class="form-control"
+                                                        defaultValue={profile.heightFeet}
+                                                        className="form-control"
                                                     />
                                                 </div>
-                                                <br />
-                                                <div class="form-group">
-                                                    <label for="heightInches">
-                                                        Height (Inches)
-                                                    </label>
+                                                <div className="form-group">
+                                                    <label htmlFor="heightInches">Height (Inches)</label>
                                                     <input
                                                         type="number"
                                                         name="heightInches"
-                                                        defaultValue={
-                                                            profile.heightInches
-                                                        }
-                                                        class="form-control"
+                                                        defaultValue={profile.heightInches}
+                                                        className="form-control"
                                                     />
                                                 </div>
-                                                <br />
-                                                <div class="form-group">
-                                                    <label for="weight">
-                                                        Weight (Pounds)
-                                                    </label>
+                                                <div className="form-group">
+                                                    <label htmlFor="weight">Weight (Pounds)</label>
                                                     <input
                                                         type="number"
                                                         name="weight"
-                                                        defaultValue={
-                                                            profile.weight
-                                                        }
-                                                        class="form-control"
+                                                        defaultValue={profile.weight}
+                                                        className="form-control"
                                                     />
                                                 </div>
-                                                <br />
-                                                <div class="form-group">
-                                                    <label for="notes">
-                                                        Notes
-                                                    </label>
+                                                <div className="form-group">
+                                                    <label htmlFor="notes">Notes</label>
                                                     <input
                                                         type="text"
                                                         name="notes"
-                                                        defaultValue={
-                                                            profile.notes
-                                                        }
-                                                        class="form-control"
+                                                        defaultValue={profile.notes}
+                                                        className="form-control"
                                                     />
                                                 </div>
-                                                <br />
                                             </div>
-                                            {/* Adding "Close" button to bottom of pop up window: */}
-                                            <div class="modal-footer">
+                                            <div className="modal-footer">
                                                 <button
                                                     type="button"
-                                                    class="btn btn-secondary"
+                                                    className="btn btn-secondary"
                                                     data-dismiss="modal"
                                                 >
                                                     Close
                                                 </button>
-                                                {/* Adding "Update Profile" input-submit-type button to bottom of pop up window: */}
                                                 <input
                                                     type="submit"
                                                     value="Update Profile"
-                                                    class="btn btn-primary btn-block"
+                                                    className="btn btn-primary btn-block"
                                                 />
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <br />
-                            {/* Text card for "Profile" with different attributes: */}
-                            <div className = "inf">
-                                <div class = "card text-center biggercard">
-                            <ul class = "list-group list-group-flush">
-                                <li class = "list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    {" "}
-                                    <h6 class = "mb-0"> Name: </h6> <span class = "text-secondary">{user.fullName}{" "} </span>
-                                </li>
-                                <br />
-                                <li  class = "list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    {" "}
-                                    <h6 class = "mb-0"> Date of Birth: </h6>{" "}
-                                    <span class = "text-secondary">{profile.dateOfBirth}{" "} </span>
-                                </li>
-                                <br />
-                                <li  class = "list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    {" "}
-                                    <h6 class = "mb-0"> Height: </h6> <span class = "text-secondary">{profile.heightFeet} Feet{" "}
-                                    {profile.heightInches} Inches{" "} </span>
-                                </li>
-                                <br />
-                                <li class = "list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    {" "}
-                                    <h6 class = "mb-0"> Weight: </h6> <span class = "text-secondary"> {profile.weight} Pounds </span>
-                                </li>
-                                <br />
-                                <li class = "list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    {" "}
-                                    <h6 class = "mb-0"> Notes: </h6> <span class = "text-secondary"> {profile.notes}{" "} </span>
-                                </li>
-                                <br />
-                                <li class = "list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    {" "}
-                                    <h6 class = "mb-0"> Joined: </h6>{" "}
-                                    <span class = "text-secondary"> {profile.createdAt.split("T").at(0)}{" "} </span>
-                                </li>
-                            </ul>
-                            </div>
-                        </div>
                         </div>
                     ))}
                 </div>
