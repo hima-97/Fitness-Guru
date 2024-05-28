@@ -1,32 +1,73 @@
-// This code is for a React component called "TrackedExercises". 
-// It imports React, the getUser utility function, the Repetitions component, the compare utility function, and the DropdownButton and Dropdown components from the react-bootstrap library.
-// The component uses the useState hook to initialize two state variables, trackedExercises and exercises, which will be used to store data fetched from the server. 
-// The component also uses the getUser utility function to get the user's ID.
-// There's a variable today which is set to the current date and formatted as a string in the format of mm/dd/yyyy.
-// The component also uses the useEffect hook to execute a side effect when the component first renders. It makes two fetch calls to the server, one to retrieve the trackedExercises and another to retrieve exercises, which are stored in the state variables. The useEffect hook is passed the user.id, so that the effect will re-run whenever user.id changes.
-// The component has a DropdownButton where you can select which exercise to add to the list of tracked exercises. The list of exercises that are shown in the dropdown are the exercises that the user has created but haven't been added to the list of tracked exercises yet. When an exercise is selected, the component makes a POST request to the server with the name of the selected exercise and the user's ID, adding the selected exercise to the list of tracked exercises.
-// The component maps over the trackedExercises array and renders the name of each exercise, and a button that allows the user to add repetitions for that exercise. It also renders the Repetitions component with the exercise_id and the date passed as props.
-// The component also renders a modal with a form for adding repetitions for the exercise. When the form is submitted, it sends a POST request to the server to add the repetitions.
+// The TrackedExercises.js file in the Fitness Guru application defines the TrackedExercises component, which allows users to manage and track their exercises over time. It provides functionality to add new exercises to their tracked list and manage repetitions for each exercise interactively.
+
+// **Imports**
+// It imports:
+// - **React and Hooks (useState, useEffect):** For managing component state and lifecycle.
+// - **getUser Utility:** To retrieve the current user's ID.
+// - **Repetitions Component:** To manage and display repetitions for each tracked exercise.
+// - **compare Utility:** To sort data as needed.
+// - **DropdownButton, Dropdown Components:** From "react-bootstrap" for creating a dropdown menu to add new exercises.
+// - **fetch API:** For making server requests.
+
+// **TrackedExercises Component**
+// A functional component that:
+// - Initializes state variables `trackedExercises` and `exercises` to store data fetched from the server.
+// - Uses `getUser` to get the current user's ID and sets a `today` variable with the current date formatted as "mm/dd/yyyy".
+// - Uses `useEffect` to fetch data for `trackedExercises` and `exercises` when the component mounts or when `user.id` changes.
+// - Features a `DropdownButton` to select and add new exercises to the tracked list. When an exercise is selected, a POST request is made to add the exercise to `trackedExercises`.
+// - Maps over `trackedExercises` to render each tracked exercise with options to add repetitions via a modal interface.
+// - **Dynamic Tracking of Exercises:**
+//   - Dynamically updates the list of tracked exercises through user interactions.
+//   - Displays details for each tracked exercise, including options to manage repetitions.
+// - **Interaction with Server Data:**
+//   - Fetches available and currently tracked exercises from the server.
+//   - Allows users to post new tracked exercises and repetitions to the backend.
+// - **Use of React Hooks for State Management:**
+//   - Manages state and effects to ensure the component is responsive and synchronized with the backend.
+
+// **Return Statement:**
+// - Renders a list of tracked exercises each with a button to add repetitions and the `Repetitions` component to manage further details.
+// - Includes a `DropdownButton` for adding new exercises to the track list.
+// - Utilizes a modal for submitting repetitions for each exercise.
+
+// **CSS Styling:**
+// - Likely utilizes CSS for styling the layout, dropdown menu, and modal to ensure they are visually integrated and user-friendly.
+
+// **Key Features and Functionality**
+// - **Dynamic Tracking of Exercises:** Allows users to easily add and manage their exercises, enhancing engagement and personalization.
+// - **Interaction with Server Data:** Directly interacts with backend services to fetch and update exercise data.
+// - **Responsive and User-Friendly UI:** Ensures the interface is accessible and responsive across various devices.
+
+// Example Usage:
+
+// <TrackedExercises />
+
+
 
 
 import React, { useState, useEffect } from "react";
-import getUser from "../utils/get-user";
-import Repetitions from "./Repetitions";
-import compare from "../utils/compare"
-import { DropdownButton, Dropdown } from 'react-bootstrap';
+import getUser from "../utils/get-user"; // Utility to fetch user details
+import Repetitions from "./Repetitions"; // Importing the Repetitions component
+import compare from "../utils/compare"; // Utility for sorting
+import { DropdownButton, Dropdown } from 'react-bootstrap'; // Bootstrap components for UI
 
 export default function Weights() {
+    // State to track exercises currently being tracked
     const [trackedExercises, setTrackedExercises] = useState([]);
+    // State to hold list of all exercises available for tracking
     let [exercises, setExercises] = useState([]);
 
+    // Fetch user details
     const user = getUser();
 
+    // Date setup for tracking purposes
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
-    today = mm + '/' + dd + '/' + yyyy;
+    today = mm + '/' + dd + '/' + yyyy; // Formatting the date
 
+    // Fetch tracked and all exercises data when component mounts or user changes
     useEffect(() => {
         fetch(`/trackedexercises/${user.id}`)
             .then((res) => res.json())
@@ -36,48 +77,56 @@ export default function Weights() {
             .then((exercises) => setExercises(exercises));
     }, [user.id]);
 
-    exercises.sort(compare)
-    trackedExercises.sort(compare)
+    // Sort exercises for consistent display
+    exercises.sort(compare);
+    trackedExercises.sort(compare);
+
+    // Filter out exercises that are already being tracked
     exercises = exercises.filter((exercise) => {
-        for(let i = 0; i < trackedExercises.length; i++){
-            if(trackedExercises[i].name === exercise.name){
-                return false
+        for (let i = 0; i < trackedExercises.length; i++) {
+            if (trackedExercises[i].name === exercise.name) {
+                return false; // Do not include in list if already tracked
             }
         }
-        return true
-    })
+        return true; // Include in list if not already tracked
+    });
 
     return (
         <div>
-            <DropdownButton id="dropdown-basic-button" title="Add an Exercise to Track" menuVariant = 'light'>
-              {exercises.map(exercise =>
-                <Dropdown.Item onClick = {() => {
-                  fetch("/trackedexercises", {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        googleId: user.id,
-                        name: exercise.name,
-                    })
-                  })
-                  .then(() => {
-                    fetch(`/trackedexercises/${user.id}`)
-                    .then((res) => res.json())
-                    .then((trackedExercises) => setTrackedExercises(trackedExercises));
-                  })
-                }}> 
-                  {exercise.name}
-                </Dropdown.Item>
-              )}
+            {/* Dropdown to add a new exercise to the track list */}
+            <DropdownButton id="dropdown-basic-button" title="Add an Exercise to Track" menuVariant='light'>
+                {exercises.map(exercise =>
+                    <Dropdown.Item onClick={() => {
+                        // On click, post new tracked exercise to server
+                        fetch("/trackedexercises", {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                googleId: user.id,
+                                name: exercise.name,
+                            })
+                        })
+                        .then(() => {
+                            // Refresh the list of tracked exercises
+                            fetch(`/trackedexercises/${user.id}`)
+                            .then((res) => res.json())
+                            .then((trackedExercises) => setTrackedExercises(trackedExercises));
+                        })
+                    }}> 
+                        {exercise.name}
+                    </Dropdown.Item>
+                )}
             </DropdownButton>
-            <br />
-            <br />
+            <br /><br />
+
+            {/* Display each tracked exercise and associated functionalities */}
             {trackedExercises.map((trackedExercise) => (
                 <div>
                     <p><b>{trackedExercise.name}</b></p>
+                    {/* Button to add repetitions for an exercise */}
                     <button
                         type="button"
                         class="btn btn-primary btn-block"
@@ -86,10 +135,11 @@ export default function Weights() {
                     >
                         Add Repetition to Exercise
                     </button>
-                    <br />
-                    <br />
+                    <br /><br />
+                    {/* Show current repetitions */}
                     <Repetitions exercise_id={trackedExercise._id} date={today} />
-                        
+                    
+                    {/* Modal to add repetitions */}
                     <div
                         class="modal fade"
                         id={"addRepetitions" + trackedExercise._id}
@@ -113,6 +163,7 @@ export default function Weights() {
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
+                                {/* Form to submit new repetitions */}
                                 <form action="/repetitions" method="POST" class="mb-4">
                                     <div class="modal-body">
                                         <div class="form-group">

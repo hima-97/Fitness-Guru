@@ -1,114 +1,157 @@
-// In this code, the Repetitions component is being defined. It takes in two props, exercise_id and date, and uses them to retrieve data from the server using the fetch function. 
-// The data is then stored in the repetitions state variable using the useState hook and the setRepetitions function.
-// It uses the useEffect hook to make a request to the server to get the list of repetitions for a specific exercise using the fetch function. 
-// It also passing exercise_id as the dependency to the useEffect hook so that it only updates when exercise_id changes.
-// The component then sorts the list of repetitions by the number of repetitions in ascending order using the Array.prototype.sort method.
-// The component then renders a table that has two columns, Repetitions and Weights. 
-// For each repetition, the component renders a row with the number of repetitions in the first column and a Weight component in the second column. 
-// The Weight component is passed the repetitions_id prop, and a button that says "Add Weight" is also rendered. 
-// When clicked, this button opens a modal that has a form to add weight for the specific repetition.
-// The modal has a form that allows the user to input the weight for the specific repetition and submit the form. 
-// The form uses the POST method and sends the data to the server to update the weight for the specific repetition. 
-// The modal also has a close button that closes the modal when clicked.
+// The Repetitions.js file in the Fitness Guru application defines the Repetitions component, which displays and manages weight data for specific repetitions of an exercise. This component is designed to dynamically fetch and update repetition data, allowing users to interactively manage their weight records.
+
+// **Imports**
+// It imports:
+// - **React Hooks (useState, useEffect):** For managing state and effects.
+// - **fetch API:** To retrieve data from the server.
+// - **Weight Component:** To display weight for each repetition.
+// - **Modal Component:** For adding new weights interactively.
+
+// **Repetitions Component**
+// A functional component that:
+// - Receives `exercise_id` and `date` as props.
+// - Uses `useState` to initialize the `repetitions` state with an empty array.
+// - Uses `useEffect` to fetch repetition data from the server when `exercise_id` changes. The fetch URL is constructed dynamically using `exercise_id`.
+// - Updates the `repetitions` state with the fetched data, and sorts it by the number of repetitions in ascending order.
+// - **Dynamic Data Fetching:**
+//   - Makes server requests to get repetition data based on the `exercise_id`.
+//   - Automatically updates the component state with fetched data, ensuring real-time display accuracy.
+// - **Interactive Data Management:**
+//   - Renders a `Modal` for each repetition to add new weight records. The modal includes a form where users can submit new weights.
+//   - Submits new weight data to the server via a POST request, reflecting changes immediately in the user interface.
+// - **Sorting and Presentation:**
+//   - Ensures data is sorted by the number of repetitions.
+//   - Uses a table layout to present repetitions and associated weights clearly.
+
+// **Return Statement:**
+// - Renders a table with columns for Repetitions and Weights.
+// - Maps over the `repetitions` array to create a table row for each repetition, displaying the number of repetitions and a `Weight` component.
+// - Includes an "Add Weight" button that triggers the modal for adding weight to the specific repetition.
+
+// **CSS Styling:**
+// - Likely uses CSS for styling the table and modal elements, ensuring they are visually integrated into the application's design.
+
+// **Key Features and Functionality**
+// - **Dynamic Data Fetching:** Fetches and displays up-to-date data for repetitions, enhancing user interaction and data accuracy.
+// - **Interactive Data Management:** Allows users to add weights to repetitions through a user-friendly modal interface.
+// - **Sorting and Presentation:** Organizes data in a clear and logical order, improving readability and user experience.
+
+// Example Usage:
+
+// <Repetitions exercise_id={12345} date={"2023-01-01"} />
 
 
+
+// Import necessary React functions and components from libraries
 import React, { useState, useEffect } from "react";
-import { Table } from "reactstrap";
-import Weight from "./Weight";
+import { Table } from "reactstrap";  // Reactstrap table component for styled tables
+import Weight from "./Weight";  // Importing a custom Weight component that handles weight-related functionalities
 
+// Define the Repetitions component, receiving 'exercise_id' and 'date' as props from its parent component
 export default function Repetitions({exercise_id, date}) {
+    // useState hook to manage the 'repetitions' state in the component
     const [repetitions, setRepetitions] = useState([]);
 
+    // useEffect hook to fetch repetitions data from the server when 'exercise_id' changes
     useEffect(() => {
-        fetch(`/repetitions/${exercise_id}`)
-            .then((res) => res.json())
-            .then((repetitions) => setRepetitions(repetitions));
+        fetch(`/repetitions/${exercise_id}`) // Fetch repetitions data for a specific exercise
+            .then((res) => res.json()) // Parse the response into JSON
+            .then((repetitions) => setRepetitions(repetitions)); // Update the 'repetitions' state with fetched data
     }, [exercise_id]);
 
+    // Sort the fetched repetitions data in ascending order based on the number of repetitions
     repetitions.sort((a, b) => {
-        return a.repetitions - b.repetitions
+        return a.repetitions - b.repetitions;
     })
 
+    // Render the component content
     return (
         <div>
-                <table class = "table table-hover table-bordered table-morecondensed" style={{height: "auto"}}>                <thead>
+            {/* Define a table with Bootstrap classes for styling */}
+            <table className="table table-hover table-bordered table-morecondensed" style={{height: "auto"}}>
+                <thead>
                     <tr>
-                        <th>Repetitions</th>
-                        <th>Weights</th>
+                        <th>Repetitions</th> {/* Table header for repetitions count */}
+                        <th>Weights</th> {/* Table header for associated weights */}
                     </tr>
                 </thead>
                 <tbody>
-                    {repetitions.map((repetitions) => (
+                    {/* Map over the 'repetitions' state to generate table rows for each entry */}
+                    {repetitions.map((repetition) => (
                         <tr>
                             <td>
-                                {repetitions.repetitions}
+                                {repetition.repetitions} {/* Display the number of repetitions */}
                             </td>
                             <td>
-                                <Weight repetitions_id={repetitions._id} />
+                                <Weight repetitions_id={repetition._id} /> {/* Embed the Weight component for managing weights */}
+                                {/* Button to trigger a modal for adding weight to a specific repetition */}
                                 <button
                                     type="button"
                                     style={{float: "right"}}
-                                    class="btn btn-primary btn-block"
+                                    className="btn btn-primary btn-block"
                                     data-toggle="modal"
-                                    data-target={"#addWeight" + repetitions._id}
+                                    data-target={"#addWeight" + repetition._id}
                                 >
                                     Add Weight
                                 </button>
+                                {/* Modal structure for adding weight */}
                                 <div
-                                    class="modal fade"
-                                    id={"addWeight" + repetitions._id}
-                                    tabindex="-1"
+                                    className="modal fade"
+                                    id={"addWeight" + repetition._id}
+                                    tabIndex="-1"
                                     role="dialog"
                                     aria-labelledby="exampleModalLabel"
                                     aria-hidden="true"
                                 >
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">
+                                    <div className="modal-dialog" role="document">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="exampleModalLabel">
                                                     Add Weight
                                                 </h5>
                                                 <button
                                                     type="button"
-                                                    class="close"
+                                                    className="close"
                                                     data-dismiss="modal"
                                                     aria-label="Close"
                                                 >
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form action="/weight" method="POST" class="mb-4">
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="weight">Weight</label>
+                                            {/* Form for submitting new weight data */}
+                                            <form action="/weight" method="POST" className="mb-4">
+                                                <div className="modal-body">
+                                                    {/* Input field for weight value */}
+                                                    <div className="form-group">
+                                                        <label htmlFor="weight">Weight</label>
                                                         <input
                                                             type="number"
                                                             name="weight"
-                                                            class="form-control"
+                                                            className="form-control"
                                                         />
                                                     </div>
-                                                    <div class="form-group">
+                                                    {/* Hidden input fields for repetitions ID and date */}
+                                                    <div className="form-group">
                                                         <input
                                                             type="hidden"
                                                             name="repetitions"
-                                                            value={repetitions._id}
-                                                            class="form-control"
+                                                            value={repetition._id}
+                                                            className="form-control"
                                                         />
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div className="form-group">
                                                         <input
                                                             type="hidden"
                                                             name="date"
                                                             value={date}
-                                                            class="form-control"
+                                                            className="form-control"
                                                         />
                                                     </div>
-                                                    <br />
                                                 </div>
-                                                <div class="modal-footer">
+                                                <div className="modal-footer">
                                                     <button
                                                         type="button"
-                                                        class="btn btn-secondary"
+                                                        className="btn btn-secondary"
                                                         data-dismiss="modal"
                                                     >
                                                         Close
@@ -116,7 +159,7 @@ export default function Repetitions({exercise_id, date}) {
                                                     <input
                                                         type="submit"
                                                         value="Add Weight"
-                                                        class="btn btn-primary btn-block"
+                                                        className="btn btn-primary btn-block"
                                                     />
                                                 </div>
                                             </form>

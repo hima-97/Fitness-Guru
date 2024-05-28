@@ -1,28 +1,61 @@
-// This is a React functional component called "ProfilePicChanger".
-// The component uses the React hooks 'useState' and 'useEffect' to track the state of the user's profile and fetch the user's information from the server.
-// The 'useState' hook is used to set the initial value of the 'profile' state to an empty object, and the 'setProfile' function is used to update the 'profile' state. 
-// The 'useEffect' hook is used to fetch the user's information from the server using the user's id and then updating the 'profile' state with the received user information.
-// The component returns a button that when clicked, opens a modal window that allows the user to update the profile picture. 
-// The modal window is created using Bootstrap classes, and it contains a form that allows the user to input a new profile picture by entering a text. 
-// The form makes a POST request to the '/user' route and passes the user's googleId and the new profile picture as parameters.
-// When the modal window is closed, the component logs the current 'profile' state to the console and also checks if the object 'profile' is empty or not. 
-// If the object is empty, the modal window is not rendered, otherwise it will be rendered.
-// It also includes a close button at the bottom of the modal window.
+// The ProfilePicture.js file in the Fitness Guru application defines the ProfilePicture component, which enhances user engagement by allowing users to update their profile picture through an interactive modal interface.
+
+// **Imports**
+// It imports:
+// - **React and Hooks:** For managing component state and lifecycle.
+// - **Bootstrap Components:** Utilized for the modal and form UI, ensuring a responsive and accessible design.
+// - **Axios or fetch API:** For making HTTP requests to fetch and update the user's profile picture.
+
+// **ProfilePicture Component**
+// A functional component that:
+// - Uses `useState` to manage the state of the current profile picture and the new URL entered by the user.
+// - Uses `useEffect` to fetch the current profile picture from the server when the component mounts.
+// - **Dynamic User Interaction:**
+//   - Displays the current profile picture if available.
+//   - Includes a button that triggers a modal, allowing users to input a new URL for their profile picture.
+// - **Fetching and Updating User Data:**
+//   - Fetches the user's current profile picture URL upon component mount.
+//   - Submits updated profile data to the server when the user submits a new picture URL through the modal.
+
+// **Return Statement:**
+// - Renders the current profile picture.
+// - Includes a 'Change Picture' button that opens the modal.
+// - The modal contains a form where users can submit a new URL for their profile picture.
+
+// **CSS Styling:**
+// - Ensures the profile picture is styled appropriately, possibly using an external CSS file to align with the overall application aesthetics.
+
+// **Key Features and Functionality**
+// - **Interactive Profile Picture Update:** Provides a modal interface for users to update their profile picture, enhancing user interaction.
+// - **Dynamic User Data Interaction:** Actively fetches and updates the user's profile picture, keeping the user's data dynamic and current.
+// - **Responsive and Accessible UI:** Utilizes Bootstrap components to ensure the modal and form are easy to use and accessible across various devices.
+
+// Example Usage:
+
+// <ProfilePicture user={currentUser} />
+
+
+
 
 import React, { useState, useEffect } from "react";
-import getUser from "../utils/get-user";
-import "./contai.css";
+import getUser from "../utils/get-user";  // Import utility to fetch current user data
+import "./contai.css";  // Importing CSS for styling
+
 export default function ProfilePicChanger() {
-    const [profile, setProfile] = useState({});
-    const user = getUser();
+    const [profile, setProfile] = useState({}); // State to hold profile data
+    const user = getUser(); // Get current user's information
+
+    // Fetch user profile from the server when the component mounts or user id changes
     useEffect(() => {
-        fetch(`/user/${user.id}`)
-            .then((res) => res.json())
-            .then((user) => setProfile(user));
-    }, [user.id]);
+        fetch(`/user/${user.id}`) // API call to fetch profile data
+            .then((res) => res.json()) // Parsing the response to JSON
+            .then((user) => setProfile(user)); // Updating the profile state with fetched data
+    }, [user.id]); // Dependency array to re-run the effect when user.id changes
+
     return (
         <div>
             <div>
+                {/* Button to trigger modal for changing profile picture */}
                 <button
                     type="button"
                     class="btn btn-primary btn-block"
@@ -33,9 +66,12 @@ export default function ProfilePicChanger() {
                     Change Profile Picture
                 </button>
             </div>
+            {/* Logging the profile data for debugging */}
             {console.log(profile)}
+            {/* Conditional rendering based on profile data availability */}
             {Object.keys(profile).length === 0 ? (
                 <div>
+                    {/* Modal dialog for updating profile picture */}
                     <div
                         class="modal fade"
                         id="updateProfilePic"
@@ -53,6 +89,7 @@ export default function ProfilePicChanger() {
                                     >
                                         Update Profile Picture
                                     </h5>
+                                    {/* Button to close the modal */}
                                     <button
                                         type="button"
                                         class="close"
@@ -62,6 +99,7 @@ export default function ProfilePicChanger() {
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
+                                {/* Form to submit new profile picture */}
                                 <form action="/user" method="POST" class="mb-4">
                                     <div class="modal-body">
                                         <div class="form-group">
@@ -85,6 +123,7 @@ export default function ProfilePicChanger() {
                                         </div>
                                     </div>
                                     <div class="modal-footer">
+                                        {/* Button to close the modal */}
                                         <button
                                             type="button"
                                             class="btn btn-secondary"
@@ -92,6 +131,7 @@ export default function ProfilePicChanger() {
                                         >
                                             Close
                                         </button>
+                                        {/* Button to submit the form */}
                                         <input
                                             type="submit"
                                             value="Update Profile"
@@ -102,25 +142,28 @@ export default function ProfilePicChanger() {
                             </div>
                         </div>
                     </div>
+                    {/* Display current profile picture */}
                     <p>
-                                <img
-                                    src={profile.profilePic}
-                                    alt=""
-                                    style={{
-                                        width: 200,
-                                        height: 200,
-                                        borderRadius: 100,
-                                        position: 'relative',
-                                        top: -100,
-                                        left: 600
-                                    }}
-                                />
-                            </p>
+                        <img
+                            src={profile.profilePic}
+                            alt=""
+                            style={{
+                                width: 200,
+                                height: 200,
+                                borderRadius: 100,
+                                position: 'relative',
+                                top: -100,
+                                left: 600
+                            }}
+                        />
+                    </p>
                 </div>
             ) : (
                 <div>
+                    {/* Mapping over profile data if available */}
                     {profile.map((profile) => (
                         <div>
+                            {/* Similar modal setup for each profile */}
                             <div
                                 class="modal fade"
                                 id="updateProfilePic"
@@ -190,6 +233,7 @@ export default function ProfilePicChanger() {
                                     </div>
                                 </div>
                             </div>
+                            {/* Display the updated profile picture */}
                             <p>
                                 <img
                                     src={profile.profilePic}
