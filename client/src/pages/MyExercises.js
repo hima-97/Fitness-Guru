@@ -1,44 +1,82 @@
-// The 'MyExercises.js' file is a React component that renders the "My Exercises" page. 
-// The page is designed to allow the user to view and manage the exercises they have created. 
-// The component uses functional component and hooks with the useState hook to manage the state of the component.
-// The component then defines a functional component 'MyExercises' which is exported as the default. 
-// The component uses the getUser function to get the current user and assigns the result to the constant variable 'user'. 
-// The component then defines a state variable 'show' using the useState hook and assigns it the initial value of false.
-// The component then renders a Layout component and passes the 'user' variable as a prop to it. 
-// Within the Layout component, the component renders a Container component which is used to center the contents of the page. 
-// Inside the Container component, the component uses a ternary operator to conditionally render a button labeled 'Add Exercise' with an onClick event that sets the state variable 'show' to true.
-// When the button is clicked, it will show the CreateExercise component, When the state variable 'show' is true.
-// The component also renders the 'Exercise' component, which is a table that displays all of the user's exercises.
-// The component uses the axios library to make requests to the server to retrieve and update data.
-// The component also contains some commented out code that is not currently in use. 
-// The code appears to define a functional component 'Exx' which takes an exercise object as a prop and renders the name and description of the exercise. 
-// The component also defines a functional component 'ExerciseCatDropDown' which takes an array of exercises and a title as props and renders a dropdown menu containing the names of the exercises in the array.
+// The MyExercises.js file in the Fitness Guru application defines the MyExercises component, which serves as a dedicated page for users to manage and add exercises that they have created. This component combines functional React programming patterns with hooks to provide a dynamic and responsive user experience.
 
+// **Imports**
+// It imports:
+// - **React and useState Hook:** For building the component and managing state.
+// - **getUser:** Utility function to fetch the current user's data.
+// - **Layout, Container:** From 'react-bootstrap' for consistent page layout and content centering.
+// - **CreateExercise, Exercise:** Components that allow for the creation of new exercises and the display of existing exercises, respectively.
+// - **axios:** For making HTTP requests to fetch and update exercise data.
+
+// **MyExercises Component**
+// A functional component that:
+// - Retrieves the current user information using the `getUser` function and stores it in the 'user' variable.
+// - Uses the `useState` hook to manage visibility state of the CreateExercise component with a 'show' state variable initialized to false.
+// - Contains a Layout component that wraps the content and receives the 'user' as a prop to maintain consistent navigation and styling.
+// - Renders a Container component to center the content on the page.
+// - Uses a ternary operator to conditionally render a 'Add Exercise' button, which toggles the 'show' state, and consequently, the visibility of the CreateExercise component.
+// - Displays the Exercise component, which lists all exercises associated with the user.
+
+// **Key Features and Functionality**
+// - **Dynamic Exercise Management:**
+//   - Allows users to toggle the visibility of the CreateExercise component to add new exercises.
+//   - Displays existing exercises using the Exercise component, providing an interactive table format.
+// - **User-Centric Design:**
+//   - Utilizes the `getUser` function to ensure the data displayed is personalized and relevant to the logged-in user.
+// - **Responsive User Interface:**
+//   - Implements conditional rendering based on user interaction, enhancing usability and responsiveness. This approach helps keep the UI clean and functional, only showing elements when necessary.
+
+// **Return Statement:**
+// - The component returns JSX that includes the Layout, which wraps a Container. Inside the Container, it conditionally renders the 'Add Exercise' button and the CreateExercise component based on the 'show' state.
+// - It consistently renders the Exercise component to display the user's current exercises.
+
+// **CSS Styling:**
+// - Likely uses CSS from 'react-bootstrap' and potentially custom styles defined in an external CSS file to ensure the page is visually appealing and aligns with the application's design standards.
+
+// Example Usage:
+
+// <MyExercises />
+
+
+
+
+// Importing necessary React library and hooks
 import React from "react";
-import {useState} from "react";
+import { useState } from "react";
+// Importing Container from Bootstrap for layout management
 import Container from "react-bootstrap/Container";
 
+// Importing utility function to fetch user details
 import getUser from "../utils/get-user";
+// Importing Layout component for consistent page structure across the app
 import Layout from "../components/Layout";
+// Importing Exercise component which displays existing exercises
 import Exercise from "../components/Exercise";
+// Importing CreateExercise component to enable adding new exercises
 import CreateExercise from "../components/Workout/CreateExercise";
+// Importing Button component from Bootstrap for user interaction
 import Button from "react-bootstrap/Button";
+// Importing CSS for styling specific to this page
 import "./MyExercises.css";
 
+// Defining the MyExercises functional component
 export default function MyExercises() {
+  // Retrieving user data to provide personalized experience
   const user = getUser();
+  // Using useState to manage the visibility state of the CreateExercise component
   const [show, setShow] = useState(false);
 
   return (
+    // Wrapping the content with Layout to ensure navigation and footer are included
     <Layout user={user}>
+      // Using a Bootstrap container to manage the layout
       <Container>
-        {/* Displaying "Add Exercise" button: */}
+        {/* Conditionally rendering the "Add Exercise" button only if 'show' is false */}
         {!show && <Button onClick={() => setShow(true)}>Add Exercise</Button>}
-        {/* Displaying buttons for different muscle groups, after "Add Exercise" button is clicked: */}
+        {/* When 'show' is true, rendering the CreateExercise component to allow user to add new exercises */}
         {show && <CreateExercise user={user}/>}
-        {/* Displaying "Exercise" component (i.e. exercise table): */}
+        {/* Always displaying the Exercise component to show existing exercises */}
         <Exercise />    
-        
       </Container>
     </Layout>
   );
