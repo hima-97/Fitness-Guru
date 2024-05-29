@@ -1,109 +1,107 @@
-# Installation and Deployment
+# Fitness Guru Deployment Guide
 
-Check the current Heroku deployment here: https://fitness-guru-main.herokuapp.com/
+Check the current Heroku deployment here: [Fitness Guru on Heroku](https://fitness-guru-main.herokuapp.com/)
 
 ## Prerequisites
 
--   Computer with Internet Access
--   Web Browser (Google Chrome, Mozilla Firefox, etc.)
--   Git (Install Here: https://git-scm.com/downloads)
--   Node and npm (Install Here: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-    - nvm (node version manager) is a tool that allows you to download and install Node.js.
-        - nvm allows you to manage multiple versions of Node.js installed on your system
-        - nvm was originally developed for Linux systems, however nvm-windows can be installed for Windows with the following steps: <br>
-          https://github.com/coreybutler/nvm-windows/releases <br>
-          https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows
-    - npm (node package manager) is the package manager for Node.js and allows you to install javascript packages
-        - npm is included with Node.js, so if you have Node.js installed then most likely you have npm installed as well
--   If you are running the app locally on Google Chrome make sure to clear the browser cache
-    - In Chrome: Settings → Privacy and security → Clear browsing data → Cached images and files
+- **Computer with Internet Access**
+- **Web Browser**: Google Chrome, Mozilla Firefox, etc.
+- **Git**: [Install Git](https://git-scm.com/downloads)
+- **Node and npm**: [Install Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+  - **nvm (Node Version Manager)**: Allows you to download and install multiple versions of Node.js.
+    - Originally developed for Linux, but [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) can be installed for Windows. More details [here](https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows).
+  - **npm (Node Package Manager)**: Included with Node.js, allows you to install JavaScript packages.
+- **Clear Browser Cache** (if running locally on Google Chrome):
+  - In Chrome: Settings → Privacy and security → Clear browsing data → Cached images and files
 
-## Client ID
+## Obtaining Client ID
 
-To obtain a client_id, visit https://console.cloud.google.com/apis/credentials and follow the steps after signing in or creating an account:
+To obtain a `client_id`, follow these steps:
 
-* create a project
-* on the OAuth consent screen, set the User Type to "External" and complete the form
-* on the Credentials page, select Create Credentials and choose OAuth client ID
-* set the Application type to Web application
-* add the URI for your app to Authorized JavaScript origins and Authorized redirect URIs
-* for the local deployment, add "http://localhost:3000" to Authorized JavaScript origins and Authorized redirect URIs
-* click Create
-* copy Your Client ID
+1. Visit [Google Cloud Console](https://console.cloud.google.com/apis/credentials) and sign in or create an account.
+2. Create a project.
+3. On the OAuth consent screen, set the User Type to "External" and complete the form.
+4. On the Credentials page, select Create Credentials and choose OAuth client ID.
+5. Set the Application type to Web application.
+6. Add the URI for your app to Authorized JavaScript origins and Authorized redirect URIs.
+   - For local deployment, add "http://localhost:3000" to both Authorized JavaScript origins and Authorized redirect URIs.
+7. Click Create and copy Your Client ID.
 
-In the client directory, you will see a file named ".env.sample". Rename this file to ".env" and add your client_id.
+In the client directory, rename the file ".env.sample" to ".env" and add your `client_id`.
 
-## Mongo URI
+## Obtaining Mongo URI
 
-To obtain a Mongo URI, please visit this link: https://www.mongodb.com/ and follow the steps after signing in or creating an account:
+To obtain a Mongo URI, follow these steps:
 
-* create an organization, then create a project
-* click Build a Database
-* choose the Cluster option (we recommend the free Shared Cluster)
-* after the cluster is created, click Connect
-* Add a connection IP address
-* Create a Database User
-* on the Choose a connection method screen, select Connect your application
-* Select your driver and version (Node.js, 4.0 or later)
-* copy the connection string
+1. Visit [MongoDB](https://www.mongodb.com/) and sign in or create an account.
+2. Create an organization, then create a project.
+3. Click Build a Database and choose the Cluster option (recommend the free Shared Cluster).
+4. After the cluster is created, click Connect.
+5. Add a connection IP address and create a Database User.
+6. On the Choose a connection method screen, select Connect your application.
+7. Select your driver and version (Node.js, 4.0 or later) and copy the connection string.
 
-In the config directory, you will see a file named "config.env.sample". Rename this file to "config.env" and add your Mongo URI. <br>
-Remember to replace \<password> in the connection string with the actual password for the database user you created!
+In the config directory, rename the file "config.env.sample" to "config.env" and add your Mongo URI. Remember to replace `<password>` in the connection string with the actual password for the database user you created.
 
 ## Installation Steps
 
-Clone this repository:
+1. **Clone this repository:**
 
-```sh
-git clone https://github.com/hima-97/Fitness-Guru.git
-```
+    ```sh
+    git clone https://github.com/hima-97/Fitness-Guru.git
+    ```
 
-Run npm install in the root directory:
+2. **Install dependencies in the root directory:**
 
-```sh
-npm install
-```
+    ```sh
+    npm install
+    ```
 
-Run npm install in the client directory:
+3. **Install dependencies in the client directory:**
 
-```sh
-cd client
-npm install
-```
+    ```sh
+    cd client
+    npm install
+    ```
 
-Run the app concurrently with npm run dev in the root directory:
+4. **Run the app concurrently with npm run dev in the root directory:**
 
-```sh
-cd ..
-npm run dev
-```
+    ```sh
+    cd ..
+    npm run dev
+    ```
 
-The frontend should run on localhost:3000, and the backend should run on localhost:5000.
+The frontend should run on `http://localhost:3000`, and the backend should run on `http://localhost:5000`.
 
-# Heroku Deployment
+## Heroku Deployment
 
-To deploy the app on Heroku, please visit this link: https://www.heroku.com/ and follow these steps after signing in or creating an account:
+To deploy the app on Heroku, follow these steps:
 
-* Create new app
-* Go to Settings
-* Under Config Vars, click Reveal Config Vars
-* Add 2 Config Vars:
-    - KEY: MONGO_URI <br>
-      VALUE: \<insert MONGO_URI here>
-    - KEY: REACT_APP_AUTH_CLIENT_ID <br>
-      VALUE: \<insert CLIENT_ID here>
+1. **Create a new Heroku app:**
+   - Visit [Heroku](https://www.heroku.com/), sign in or create an account, and create a new app.
 
-Note that you should create a new CLIENT_ID for the Heroku deployment, so revisit the earlier instructions.
+2. **Configure environment variables:**
+   - Go to the Settings tab of your new app.
+   - Under Config Vars, click Reveal Config Vars.
+   - Add the following Config Vars:
+     - KEY: `MONGO_URI`
+       VALUE: `<insert MONGO_URI here>`
+     - KEY: `REACT_APP_AUTH_CLIENT_ID`
+       VALUE: `<insert CLIENT_ID here>`
 
-* Click Open app and copy the URL of the app
-* Go to this link: https://console.cloud.google.com/apis/credentials and find the Client ID for your app
-* Add the URL to Authorized JavaScript origins and Authorized redirect URIs for your Client ID
-* Click Save
+3. **Update Google Cloud Console:**
+   - Visit [Google Cloud Console](https://console.cloud.google.com/apis/credentials) and find the Client ID for your app.
+   - Add the Heroku app URL to Authorized JavaScript origins and Authorized redirect URIs for your Client ID.
+   - Click Save.
 
-* Go back to the app on Heroku
-* Go to Deploy
-* Under Deployment method, click GitHub
-* Connect to GitHub
-* Under Manual deploy, Choose a branch to deploy
-* Click Deploy Branch
-* When the deployment is finished, click Open app to view your deployed app
+4. **Deploy the app:**
+   - Go back to the app on Heroku.
+   - Go to the Deploy tab.
+   - Under Deployment method, click GitHub.
+   - Connect to GitHub and search for your repository.
+   - Under Manual deploy, choose a branch to deploy and click Deploy Branch.
+   - Once deployment is finished, click Open app to view your deployed app.
+
+---
+
+Your Fitness Guru application is now deployed and running. For any issues or further assistance, please refer to the Heroku documentation or contact support.
