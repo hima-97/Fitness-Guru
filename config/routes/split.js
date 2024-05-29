@@ -1,104 +1,206 @@
-// Adding API endpoint route for "Split" schema, so the server can be used to perform the CRUD (create, read, update, delete) operations for the "Split" schema in the MongoDB database
-// This code exports an Express router that handles the CRUD (create, read, update, delete) operations for the "Split" schema in the MongoDB database
+// The split.js file in your project's server directory establishes an Express router for handling CRUD operations on the "Split" schema in your MongoDB database. This schema likely manages workout splits, crucial for users to organize their workout routines effectively. Here is a detailed breakdown of how this router manages data for workout splits:
+
+// **Importing Dependencies and Router Setup:**
+// - **express:** Used for creating the router instance.
+// - **Split:** The Mongoose model for the splits, interacting with the MongoDB database.
+
+// ```javascript
+// const express = require('express');
+// const Split = require('../models/Split');
+// const router = express.Router();
+// ```
+
+// **Router Definitions:**
+
+// 1. **GET Request - Fetch Public Splits (/public):**
+//    - Retrieves all workout splits marked as public, allowing them to be viewed by any user of the application.
+// ```javascript
+// router.get('/public', async (req, res) => {
+//     try {
+//         const publicSplits = await Split.find({ public: true });
+//         res.json(publicSplits);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+// ```
+
+// 2. **GET Request - Fetch User Splits (/:googleId):**
+//    - Fetches all splits associated with a specific user's Google ID, facilitating personal workout management.
+// ```javascript
+// router.get('/:googleId', async (req, res) => {
+//     try {
+//         const userSplits = await Split.find({ googleId: req.params.googleId });
+//         res.json(userSplits);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+// ```
+
+// 3. **POST Request - Create Split (/):**
+//    - Handles the creation of new workout splits based on data submitted in the request body.
+// ```javascript
+// router.post('/', async (req, res) => {
+//     const newSplit = new Split(req.body);
+//     try {
+//         await newSplit.save();
+//         res.redirect('back');
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// });
+// ```
+
+// 4. **PUT Request - Update Split (/put/:id):**
+//    - Updates a specified split by ID, modifying its details as per the data in the request body.
+// ```javascript
+// router.put('/put/:id', async (req, res) => {
+//     try {
+//         await Split.findByIdAndUpdate(req.params.id, req.body);
+//         res.redirect('back');
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// });
+// ```
+
+// 5. **DELETE Request - Delete Split (/delete/:id):**
+//    - Removes a split from the database based on its ID.
+// ```javascript
+// router.delete('/delete/:id', async (req, res) => {
+//     try {
+//         await Split.findByIdAndDelete(req.params.id);
+//         res.redirect('back');
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+// ```
+
+// 6. **POST Request - Toggle Public Visibility of a Split (/public/:id):**
+//    - Changes the visibility status of a workout split between public and private.
+// ```javascript
+// router.post('/public/:id', async (req, res) => {
+//     const split = await Split.findById(req.params.id);
+//     if (split.public === 'COPIED') return; // Ensure copied splits cannot change visibility
+//     split.public = !split.public;
+//     await split.save();
+//     res.redirect('back');
+// });
+
+// 7. **POST Request - Clone Public Split (/public/:googleId/split/:id):**
+//    - Clones a public split for a specified user, marking the new copy as "COPIED".
+// ```javascript
+// router.post('/public/:googleId/split/:id', async (req, res) => {
+//     const originalSplit = await Split.findById(req.params.id);
+//     const newSplit = new Split({
+//         ...originalSplit.toObject(),
+//         googleId: req.params.googleId,
+//         public: 'COPIED'
+//     });
+//     await newSplit.save();
+//     res.redirect('back');
+// });
+// ```
+
+// **Exporting the Router:**
+// The router is then exported to be used in the server setup, integrating it into the broader application ecosystem.
+// ```javascript
+// module.exports = router;
+// ```
+
+// This setup allows users to manage their workout splits efficiently, providing capabilities to create, read, update, delete, and share workout plans, enhancing the interactivity and functionality of your fitness application.
 
 
 const express = require("express");
 
-// We need the Express router because this is a route that we are creating:
+// Initialize the express router to define route endpoints:
 const router = express.Router();
 
-// Requiring the mongoose model for the "Split" schema:
+// Import the Split model that handles the database operations for split entities:
 const Split = require("../../models/Split");
 
 /*
-HTTP Requests:
+HTTP Requests Overview:
 
-1) POST = create
-    - POST is a little safer than GET because the parameters are not stored in browser history or in web server logs
+1) POST = Create new entities or submit data.
+    - POST is more secure than GET as it does not expose data in URL.
 
-2) GET = read
-    - GET is less secure compared to POST because data sent is part of the URL
-    - Never use GET when sending passwords or other sensitive information
+2) GET = Retrieve data.
+    - GET is less secure; ideal for non-sensitive data retrieval as data is visible in URL.
 
-3) PUT = update/replace
-    - POST requests supply additional data from the client (browser) to the server in the message body. In contrast, GET requests include all required data in the URL
-    - The difference between POST and PUT is that PUT requests are idempotent. That is, calling the same PUT request multiple times will always produce the same result
+3) PUT = Update existing entities.
+    - PUT is idempotent, meaning multiple identical requests should have the same effect as a single request.
 
-4) DELETE = delete
+4) DELETE = Remove data.
+    - DELETE removes data specified by the endpoint and parameters.
 */
 
-// Get request:
+// GET request to retrieve public splits:
 router.get("/public", async (req, res) => {
-    // This retrieves the splits where the 'public' property is 'true' and returns the data as a response:
+    // Fetch splits where the 'public' property is set to 'true' and send them in the response:
     const splits = await Split.find({ public: "true" });
     res.send(splits);
 });
 
-// Get request:
+// GET request to retrieve all splits for a specific user identified by googleId:
 router.get("/:googleId", async (req, res) => {
-    // Assigning split with the specified googleId in the URL from MongoDB Atlas to "splits" variable:
     const splits = await Split.find({ googleId: req.params.googleId });
     res.send(splits);
 });
 
-// Post request:
+// POST request to create a new split:
 router.post("/", async (req, res) => {
-    result = await Split.create(req.body);
-
-    // The res.redirect() is a URL utility function which helps to redirect the web pages according to the specified paths
-    // The method res.redirect("back") is used to redirect the user back to the http referer (i.e. back to page where request came from)
-    // The http referer contains an absolute or partial address of the page that makes the request
-    // If no http referer is present, the request is redirected to “/” route by default
+    const result = await Split.create(req.body);
+    // Redirect user back to the previous page after creation:
     res.redirect("back");
 });
 
-// Put request:
+// PUT request to update an existing split:
 router.post("/put/:id", async (req, res) => {
     await Split.findOneAndUpdate({ _id: req.params.id }, req.body);
+    // Redirect to the previous page after updating:
     res.redirect("back");
 });
 
-// Delete request:
+// DELETE request to remove an existing split:
 router.post("/delete/:id", async (req, res) => {
     await Split.findOneAndDelete({ _id: req.params.id });
+    // Redirect to the previous page after deletion:
     res.redirect("back");
 });
 
-// Request that updates the 'public' property of the split:
+// POST request to toggle the 'public' status of a split:
 router.post("/public/:id", async (req, res) => {
-    const split = await Split.findOne({ _id: req.params.id })
-    if(split.public === "COPIED"){
+    const split = await Split.findOne({ _id: req.params.id });
+    if (split.public === "COPIED") {
+        // Prevent changing the status if the split is a copied version:
         res.redirect("back");
-    }else if(split.public != "true"){
-        await Split.findOneAndUpdate({ _id: req.params.id }, {
-            $set:
-            {
-                public: "true"
-            }
-        });
+    } else if (split.public !== "true") {
+        // Make the split public if it is not already:
+        await Split.findOneAndUpdate({ _id: req.params.id }, { $set: { public: "true" }});
         res.redirect("back");
-    }else{
-        await Split.findOneAndUpdate({ _id: req.params.id }, {
-        $set:
-        {
-            public: "false"
-        }
-    });
-    res.redirect("back");
+    } else {
+        // Make the split private if it is currently public:
+        await Split.findOneAndUpdate({ _id: req.params.id }, { $set: { public: "false" }});
+        res.redirect("back");
     } 
 });
 
-// Request that creates a new split with the googleId and the name of the split passed in the request:
-router.post("/public/:googleId/split/:id", async (req, res) =>{
-    const split = await Split.findOne({ _id: req.params.id })
-    let newSplit = new Split
-    newSplit.googleId = req.params.googleId
-    newSplit.name = split.name
-    newSplit.workouts = split.workouts
-    newSplit.notes = split.notes
-    newSplit.public = "COPIED"
-    Split.create(newSplit)
-    res.redirect("back")
-})
+// POST request to create a copy of a public split under a different user's ID:
+router.post("/public/:googleId/split/:id", async (req, res) => {
+    const originalSplit = await Split.findOne({ _id: req.params.id });
+    const newSplit = new Split({
+        googleId: req.params.googleId,
+        name: originalSplit.name,
+        workouts: originalSplit.workouts,
+        notes: originalSplit.notes,
+        public: "COPIED"
+    });
+    await Split.create(newSplit);
+    // Redirect back after creating the new split:
+    res.redirect("back");
+});
 
 module.exports = router;

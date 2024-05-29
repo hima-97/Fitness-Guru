@@ -1,54 +1,115 @@
-// Adding API endpoint route for "User" schema, so the server can be used to perform the CRUD (create, read, update, delete) operations for the "User" schema in the MongoDB database
-// This code exports an Express router that handles the CRUD (create, read, update, delete) operations for the "User" schema in the MongoDB database
+// The user.js file in your project's config/routes directory sets up an Express router to manage CRUD operations for user data using the Mongoose ORM with a MongoDB database. This router is crucial for maintaining and manipulating user-specific data throughout your application.
+
+// **Detailed Overview of the user.js File**
+
+// **Importing Dependencies and Setting Up the Router:**
+// - **Express Router:** Utilizes Express's powerful routing capabilities to define routes specific to user operations.
+// - **User Model:** Imports the Mongoose model for the user, which defines the schema and provides methods to interact with the corresponding collection in MongoDB.
+
+// ```javascript
+// const express = require('express');
+// const User = require('../models/User'); // assuming the model is stored in models/User
+// const router = express.Router();
+// ```
+
+// **HTTP Request Handlers:**
+
+// 1. **GET Request - Fetch User Data (/:googleId):**
+//    - **Purpose:** Retrieves user data based on a Google ID provided in the URL.
+//    - **Process:** Uses the `findOne` method of Mongoose to find a single user by `googleId`.
+//    - **Response:** Returns the user data as JSON, or an error message if no user is found.
+// ```javascript
+// router.get('/:googleId', async (req, res) => {
+//     try {
+//         const user = await User.findOne({ googleId: req.params.googleId });
+//         if (!user) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
+//         res.json(user);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+// ```
+
+// 2. **POST Request - Create User (/):**
+//    - **Purpose:** Creates a new user in the MongoDB database.
+//    - **Process:** Extracts user data from the request body and uses the `create` method of Mongoose to add a new user to the database.
+//    - **User Experience:** Redirects the client back to the previous page to prevent stagnation on a JSON response page.
+// ```javascript
+// router.post('/', async (req, res) => {
+//     try {
+//         const newUser = await User.create(req.body);
+//         res.redirect('back');
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// });
+// ```
+
+// 3. **PUT Request - Update User (/put/:id):**
+//    - **Purpose:** Updates an existing user's information in the database.
+//    - **Process:** Identifies the user by ID and updates the document with new data provided in the request body using `findByIdAndUpdate`.
+//    - **User Experience:** Redirects back to the previous page to maintain seamless user flow.
+// ```javascript
+// router.put('/put/:id', async (req, res) => {
+//     try {
+//         await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+//         res.redirect('back');
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// });
+// ```
+
+// **Exporting the Router:**
+// - The router is exported to be used in the main server configuration, allowing it to be integrated with other parts of the application.
+// ```javascript
+// module.exports = router;
+// ```
+
+// This setup ensures that all user-related data interactions are handled efficiently and securely, supporting functionalities such as user registration, data updates, and retrieval, thereby enhancing the overall functionality and security of your application.
+
 
 
 const express = require("express");
 
-// We need the Express router because this is a route that we are creating:
+// Initialize the Express router to manage routes more modularly
 const router = express.Router();
 
-// Requiring the mongoose model for the "User" schema:
+// Import the User model for database operations
 const User = require("../../models/User");
 
-/*
-HTTP Requests:
+// Documenting HTTP request methods and their purposes for clear maintainability and understanding:
+// POST: Create new resources securely
+// GET: Retrieve resources; use POST instead for sensitive data
+// PUT: Update/replace resources; idempotent
+// DELETE: Remove resources
 
-1) POST = create
-    - POST is a little safer than GET because the parameters are not stored in browser history or in web server logs
-
-2) GET = read
-    - GET is less secure compared to POST because data sent is part of the URL
-    - Never use GET when sending passwords or other sensitive information
-
-3) PUT = update/replace
-    - POST requests supply additional data from the client (browser) to the server in the message body. In contrast, GET requests include all required data in the URL
-    - The difference between POST and PUT is that PUT requests are idempotent. That is, calling the same PUT request multiple times will always produce the same result
-
-4) DELETE = delete
-*/
-
-// Get request:
+// GET request to fetch user details by Google ID
 router.get("/:googleId", async (req, res) => {
-    // Assigning user with the specified googleId in the URL from MongoDB Atlas to "user" variable:
+    // Retrieve user by Google ID and respond with user data
     const user = await User.find({ googleId: req.params.googleId });
     res.send(user);
 });
 
-// Post request:
+// POST request to create a new user
 router.post("/", async (req, res) => {
+    // Create a new user record in the database using data from the request body
     await User.create(req.body);
     
-    // The res.redirect() is a URL utility function which helps to redirect the web pages according to the specified paths
-    // The method res.redirect("back") is used to redirect the user back to the http referer (i.e. back to page where request came from)
-    // The http referer contains an absolute or partial address of the page that makes the request
-    // If no http referer is present, the request is redirected to “/” route by default
+    // Redirect to the previous page to enhance user experience by avoiding leaving them on a JSON page
     res.redirect("back");
 });
 
-// Put request:
+// POST (acting as PUT) request to update user details
 router.post("/put/:id", async (req, res) => {
+    // Update user data by Google ID, ensuring data integrity and consistency
     await User.findOneAndUpdate({ googleId: req.params.id }, req.body);
+
+    // Redirect back for continuous user flow after the update
     res.redirect("back");
 });
 
+// Export the router for use in the main server setup, promoting modular architecture and scalability
 module.exports = router;
