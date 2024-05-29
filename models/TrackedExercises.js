@@ -1,24 +1,67 @@
-// Models are defined through the Schema interface
-// A model represents a collection of documents in the database that you can search
-// However, a model's instances represent individual documents that you can save and retrieve
-// "Tracked Exercise" entity database schema, using mongoose:
+// The TrackedExercises.js file in your models directory is essential for managing the data related to exercises that users choose to track over time. By using Mongoose to define a schema, this model helps users monitor their progress effectively within your fitness application. Below is a detailed breakdown of the schema definition and its role within your application:
+
+// **Schema Definition**
+// The TrackedExercisesSchema is defined using Mongoose's Schema constructor. It includes several fields that detail the properties of a "TrackedExercises" entity, ensuring comprehensive data management for tracked exercises:
+
+// ```javascript
+// const mongoose = require('mongoose');
+// const Schema = mongoose.Schema;
+
+// const TrackedExercisesSchema = new Schema({
+//     googleId: {
+//         type: String,
+//         required: false,
+//         description: "Stores the Google ID of the user tracking the exercise. Ensures user-specific data management and access control."
+//     },
+//     name: {
+//         type: String,
+//         required: true,
+//         description: "Name of the tracked exercise, essential for identification and display within the application."
+//     }
+// });
+// ```
+
+// **Model Compilation**
+// The defined schema is compiled into a Mongoose model named 'TrackedExercises'. This model enables CRUD operations on the trackedexercises collection within the MongoDB database, facilitating efficient data management:
+
+// ```javascript
+// const TrackedExercises = mongoose.model('TrackedExercises', TrackedExercisesSchema);
+// ```
+
+// **Use in Application**
+// By exporting the TrackedExercises model, it becomes accessible throughout your application, enabling various modules to interact with the tracked exercise data:
+
+// ```javascript
+// module.exports = TrackedExercises;
+// ```
+
+// **Application Impact**
+// - **User-Specific Tracking:** The inclusion of the googleId field ensures that each user's tracked exercises are stored and managed separately, enhancing data security and personalization.
+// - **Exercise Identification:** The required name field allows users to easily identify and differentiate between various exercises they are tracking, which is critical for monitoring progress over time.
+// - **Data Management:** The TrackedExercises model supports robust data operations, enabling users to add, update, retrieve, and delete tracked exercise entries, thereby maintaining a detailed log of their workout routines and improvements.
+
 
 const mongoose = require("mongoose");
 
-// Defining schema:
-// The schema has several fields, each defined with a JSON object, describing the properties of the "TrackedExercises" entity.
-// Each field has a type, which can be a string, number, and a "required" property to specify if the field is required or not.
-// Finally, the code exports the model with the mongoose.model("TrackedExercises", TrackedExercisesSchema) function, which creates a Mongoose model based on the "TrackedExercisesSchema" and allows it to be imported and used in other parts of the application.
+// Define the schema for tracked exercises
+// This schema outlines the structure of the "TrackedExercises" collection in the MongoDB database.
 const TrackedExercisesSchema = new mongoose.Schema({
+    // googleId: The Google ID of the user tracking this exercise
+    // Type: String
+    // Required: false, meaning this field is optional
     googleId: {
         type: String,
         required: false,
     },
+    // name: The name of the exercise being tracked
+    // Type: String
+    // Required: true, meaning this field must be provided
     name: {
         type: String,
         required: true,
     }
 });
 
-// Defining and compiling model:
+// Compile the schema into a model
+// The mongoose.model function creates a model from the schema, allowing for interaction with the "TrackedExercises" collection in the database.
 module.exports = mongoose.model("TrackedExercises", TrackedExercisesSchema);
