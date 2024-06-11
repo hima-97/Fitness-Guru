@@ -57,18 +57,18 @@ ME(RVA)N is an ideal approach for working with JavaScript and JSON throughout th
 
 ## Detailed Breakdown
 
-#### Frontend (React.js)
+### Frontend (React.js)
 - **React Components**: Each UI element in the Fitness Guru application is a React component, making the code modular and reusable.
 - **State Management**: React’s useState and useEffect hooks manage the state and lifecycle of components.
 - **Routing**: React Router is used for navigation between different pages like Home, Profile, MyExercises, etc.
 - **UI/UX**: Styled using CSS and libraries like Bootstrap for responsive design.
 
-#### Backend (Express.js & Node.js)
+### Backend (Express.js & Node.js)
 - **Server Setup**: Express.js sets up the server and defines routes to handle different HTTP requests.
 - **API Endpoints**: The backend has multiple API endpoints for CRUD operations on entities like users, exercises, workouts, splits, etc.
 - **Middleware**: Middleware functions handle tasks such as logging, authentication, and request parsing.
 
-#### Database (MongoDB)
+### Database (MongoDB)
 - **Schemas**: Mongoose schemas define the structure of the data stored in MongoDB.
 - **Data Storage**: User data, exercises, workouts, and other information are stored as documents in MongoDB collections.
 - **Data Retrieval**: Mongoose provides an easy way to retrieve, update, and delete documents from the database.
