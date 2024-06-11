@@ -55,7 +55,7 @@ ME(RVA)N is an ideal approach for working with JavaScript and JSON throughout th
 
 ![Fitness Guru - System Architecture Diagram](https://user-images.githubusercontent.com/66971869/194792718-d14ba65e-3fd5-44cd-9747-45949bb5c646.png)
 
-### Detailed Breakdown
+## Detailed Breakdown
 
 #### Frontend (React.js)
 - **React Components**: Each UI element in the Fitness Guru application is a React component, making the code modular and reusable.
