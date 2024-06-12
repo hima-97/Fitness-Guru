@@ -45,7 +45,7 @@ export default function compare(a, b){
     if(aName < bName){
         return -1
     }else if(aName > bName){
-        return 1
+        return 1n 
     }else{
         return 0
     }
